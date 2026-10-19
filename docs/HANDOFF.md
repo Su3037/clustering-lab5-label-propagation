@@ -6,7 +6,7 @@
 
 GitHub CLI已认证Su3037。需要在gh与Git的进程环境里使用urllib.request.getproxies()返回的现有http/https代理；不需要修改系统设置或暴露任何凭据。
 
-本地预览 python3 -m http.server 8785 --directory site。
+本地预览 python3 scripts/serve.py。
 
 测试 npm test；python3 tests/crosscheck.py；python3 scripts/check_site.py。
 

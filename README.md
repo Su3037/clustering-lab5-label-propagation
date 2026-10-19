@@ -40,7 +40,7 @@ PDF是与PPT相同页面的图像预览，编辑请用PPTX。网页课件也可�
 ## 本地启动
 
 ```sh
-python3 -m http.server 8785 --directory site
+python3 scripts/serve.py
 ```
 
 打开 http://127.0.0.1:8785/ 。请用HTTP服务打开，不直接双击HTML。浏览网站没有npm依赖。
@@ -55,6 +55,7 @@ python3 tests/crosscheck.py
 node scripts/build-traces.mjs
 python3 src/label_propagation.py data/golden.json
 python3 scripts/check_site.py
+python3 tests/test_preview.py
 ```
 
 `tests/crosscheck.py`用独立Python与JS实现在271个固定种子的配置上比较逐节点票数、标签、轮数、停止原因与cutsize。

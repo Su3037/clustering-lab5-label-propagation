@@ -124,7 +124,11 @@ for(const button of document.querySelectorAll('[data-film]'))button.addEventList
  for(const b of document.querySelectorAll('[data-film]'))b.setAttribute('aria-pressed',String(b===button));
  for(const b of document.querySelectorAll('[data-seek]'))b.hidden=short;
 });
-for(const button of document.querySelectorAll('[data-seek]'))button.addEventListener('click',()=>{const v=$('#film-player');v.currentTime=Number(button.dataset.seek);v.play().catch(()=>{});});
+for(const button of document.querySelectorAll('[data-seek]'))button.addEventListener('click',()=>{
+ const v=$('#film-player'),at=Number(button.dataset.seek);
+ const begin=()=>{v.currentTime=at;v.play().catch(()=>{});};
+ if(v.readyState>=1&&Number.isFinite(v.duration))begin();else v.addEventListener('loadedmetadata',begin,{once:true});
+});
 // Burned-in subtitles are primary; the VTT remains available without duplicating them by default.
 $('#film-player').addEventListener('loadedmetadata',()=>{for(const track of $('#film-player').textTracks)track.mode='disabled';});
 const questions=QUESTIONS;
