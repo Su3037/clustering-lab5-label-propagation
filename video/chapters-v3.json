@@ -1,0 +1,57 @@
+[
+  {
+    "start": 0.0,
+    "title": "序 · 一把尺子",
+    "id": "ruler"
+  },
+  {
+    "start": 17.41,
+    "title": "序 · 换个问题",
+    "id": "idea"
+  },
+  {
+    "start": 32.03,
+    "title": "LABEL PROPAGATION",
+    "id": "title"
+  },
+  {
+    "start": 37.62,
+    "title": "01 · 规则",
+    "id": "names"
+  },
+  {
+    "start": 51.18,
+    "title": "02 · 第一轮",
+    "id": "round1"
+  },
+  {
+    "start": 68.2,
+    "title": "02 · 第二轮",
+    "id": "round2"
+  },
+  {
+    "start": 76.6,
+    "title": "03 · 轮流还是同时",
+    "id": "sync"
+  },
+  {
+    "start": 89.0,
+    "title": "04 · 切开的代价",
+    "id": "cut"
+  },
+  {
+    "start": 102.5,
+    "title": "05 · 回到电路图",
+    "id": "payoff"
+  },
+  {
+    "start": 119.27,
+    "title": "06 · 它做不到的事",
+    "id": "limits"
+  },
+  {
+    "start": 136.16,
+    "title": "尾声 · 边界",
+    "id": "ending"
+  }
+]

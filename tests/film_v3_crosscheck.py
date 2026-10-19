@@ -16,3 +16,13 @@ c = next(e for e in d['golden']['events'] if e['node'] == 'C' and e['round'] == 
 assert c['votes'] == {'B': 5, 'D': 2, 'E': 1} and c['label'] == 'B'
 print('film-v3 ok: nodes', len(g['nodes']), 'edges', len(g['edges']), 'total', d['geometric']['metrics']['totalWeight'],
       'geometric cut', cut(d['geometric']['labels']), 'LP cut', cut(labels), 'rounds', d['lp']['rounds'])
+# Side runs used by the film, replayed independently.
+G5 = [['A', 'B', 5], ['A', 'C', 1], ['B', 'C', 4], ['C', 'D', 2], ['D', 'E', 5], ['C', 'E', 1]]
+assert solve('ABCDE', G5)['labels'] == d['golden']['labels'] and d['golden']['rounds'] == 2
+rv = solve('ABCDE', G5, order='EDCBA'); assert rv['labels'] == d['reverse']['labels'] and rv['rounds'] == d['reverse']['rounds'] == 3
+st = solve('ABCDE', [e if e[:2] != ['C', 'D'] else ['C', 'D', 10] for e in G5])
+assert st['labels'] == d['strongCD']['labels'] and st['cut'] == d['strongCD']['metrics']['cut'] == 5
+ps = solve('AB', [['A', 'B', 1]], mode='sync'); assert ps['status'] == d['pairSync']['status'] == 'cycle'
+pa = solve('AB', [['A', 'B', 1]]); assert pa['labels'] == d['pairAsync']['labels'] == {'A': 'B', 'B': 'B'}
+iso = solve('ABCDE', [['A', 'B', 3], ['C', 'D', 2]]); assert iso['labels']['E'] == 'E'
+print('side runs ok: reverse', rv['rounds'], 'rounds; C-D=10 cut', st['cut'], '; sync pair', ps['status'])
