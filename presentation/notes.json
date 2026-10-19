@@ -1,0 +1,66 @@
+[
+  {
+    "slide": 1,
+    "notes": "开场播放原创短片《邻居的颜色》，3分49秒，无配音。随后选第4至11页讲解核心实例。作者 Su3037。图书馆为虚构结构类比，不用于判断真实个人。\nhttps://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation"
+  },
+  {
+    "slide": 2,
+    "notes": "先问观众：没有指定组长，为什么经常相连的点仍可能形成群体？这里讨论的是图结构的分组，不是社会学因果。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 3,
+    "notes": "课堂版本使用加权无向图。每轮依次更新，立即写回。平票按标签字典序最小。孤点保留原标签。原论文还有其他顺序和平票变体。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 4,
+    "notes": "图结构与权重来自教师指定 tiny_graph。边权总和18。不是运行真实EDA工具。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 5,
+    "notes": "A看到B标签5票，C标签1票，因此A选择B。B随后读取已经更新的A，这是异步更新。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 6,
+    "notes": "这一刻A和B均带标签B，C通过AC和BC收到同标签的1+4=5票。不能只选最粗的单条边，也不是按邻居人数多数。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 7,
+    "notes": "逐个解释A、B、C、D、E。变化节点A、C、D共3个。此时已经形成两组，但还未完成零变化确认轮。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 8,
+    "notes": "第2轮零变化，所以iters=2包含确认轮。跨组的是CD与CE两条边，权重和3。切边数与加权cutsize区分。样例特定结果，不是普遍性质。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 9,
+    "notes": "双节点图初始A/B。同步整轮读旧值会轮流B/A与A/B。异步A先变B，B随后看到B而不变。实验检测重复状态并报告cycle，不伪称stable。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 10,
+    "notes": "实际独立运行：正序B/B/B/E/E，两轮；倒序A/A/A/D/D，三轮。分区相同但标签名不同。其他图或参数可能得到不同分区，不把本图的结果推广为总是相同。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 11,
+    "notes": "最小标签、最大标签、保留当前优先都是可定义的教学变体。默认教师规则是min。三种停止原因分别对应stable/cycle/limit。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 12,
+    "notes": "LP可作为粗化或初始社区线索。图模型是教学简化，实际网表可能包含超边，还需适合的模型与约束。不会保证两组、平衡或最优切割。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 13,
+    "notes": "回扣图书馆。模型里的标签依赖观察关系与权重，不能推出因果或人的本质。现实意义是提醒记录建模选择，重新观察边界，不是用算法替人贴标签。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 14,
+    "notes": "说明课程共建的增量，而非发明新算法。原材料已经有五节点图，本项目补充中文无配音知识动画、真实逐节点记录、同步振荡反例、改参实验、练习解析和复现测试。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 15,
+    "notes": "切换网页到#lab。先让同学预测C的选择，再逐节点验证。切换两节点图同步运行观察cycle，最后改变桥边权重。无需完成所有实验。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  },
+  {
+    "slide": 16,
+    "notes": "来源完整链接列入本页备注。教师文件无独立开源许可声明，因此不再分发其课件、视频或课程私密资料。只引用事实与小图数据并注明来源。原创代码MIT，原创教材与媒体CC BY4.0，第三方各遵原许可。\n\n资料：https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation\nhttps://arxiv.org/abs/0709.2938"
+  }
+]

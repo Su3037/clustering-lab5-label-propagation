@@ -1,0 +1,122 @@
+[
+  {
+    "start": 0,
+    "title": "序 · 相邻",
+    "id": "hook"
+  },
+  {
+    "start": 9,
+    "title": "序 · 连接",
+    "id": "relation"
+  },
+  {
+    "start": 18,
+    "title": "Lab 05 · Label propagation",
+    "id": "title"
+  },
+  {
+    "start": 25,
+    "title": "01 · 规则",
+    "id": "init"
+  },
+  {
+    "start": 34,
+    "title": "01 · 规则",
+    "id": "weight"
+  },
+  {
+    "start": 44,
+    "title": "01 · 规则",
+    "id": "sum"
+  },
+  {
+    "start": 53,
+    "title": "02 · 老师的五节点图",
+    "id": "setup"
+  },
+  {
+    "start": 61,
+    "title": "02 · 第 1 轮 / A",
+    "id": "visit-a"
+  },
+  {
+    "start": 71,
+    "title": "02 · 第 1 轮 / B",
+    "id": "visit-b"
+  },
+  {
+    "start": 79,
+    "title": "02 · 第 1 轮 / C",
+    "id": "visit-c"
+  },
+  {
+    "start": 91,
+    "title": "02 · 第 1 轮 / D",
+    "id": "visit-d"
+  },
+  {
+    "start": 100,
+    "title": "02 · 第 1 轮 / E",
+    "id": "visit-e"
+  },
+  {
+    "start": 108,
+    "title": "03 · 停止",
+    "id": "verify"
+  },
+  {
+    "start": 119,
+    "title": "03 · 结果",
+    "id": "cut"
+  },
+  {
+    "start": 130,
+    "title": "03 · 结果的边界",
+    "id": "zero"
+  },
+  {
+    "start": 140,
+    "title": "04 · 同时，还是依次",
+    "id": "sync"
+  },
+  {
+    "start": 153,
+    "title": "04 · 同时，还是依次",
+    "id": "async"
+  },
+  {
+    "start": 163,
+    "title": "04 · 顺序",
+    "id": "order"
+  },
+  {
+    "start": 174,
+    "title": "04 · 平票",
+    "id": "tie"
+  },
+  {
+    "start": 183,
+    "title": "04 · 诚实地停止",
+    "id": "stop"
+  },
+  {
+    "start": 192,
+    "title": "05 · 回到电路",
+    "id": "eda"
+  },
+  {
+    "start": 203,
+    "title": "05 · 类比的边界",
+    "id": "boundary"
+  },
+  {
+    "start": 212,
+    "title": "尾声 · 重新看见",
+    "id": "return"
+  },
+  {
+    "start": 222,
+    "title": "Lab 05 · Su3037",
+    "id": "credits"
+  }
+]
