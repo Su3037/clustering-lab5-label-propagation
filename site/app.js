@@ -119,8 +119,8 @@ $('#export').addEventListener('click',()=>{
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
 for(const button of document.querySelectorAll('[data-film]'))button.addEventListener('click',()=>{
- const short=button.dataset.film==='short',v=$('#film-player');v.pause();v.src=short?'media/one-graph.mp4':'media/neighbors.mp4';v.poster=short?'media/one-graph.jpg':'media/cover.jpg';
- v.querySelector('track').src=short?'media/one-graph.zh.vtt':'media/neighbors.zh.vtt';v.load();
+ const short=button.dataset.film==='short',v=$('#film-player');v.pause();v.src=short?'media/one-graph.mp4':'media/neighbors.mp4?v=20261020v2';v.poster=short?'media/one-graph.jpg':'media/cover.jpg?v=20261020v2';
+ v.querySelector('track').src=short?'media/one-graph.zh.vtt':'media/neighbors.zh.vtt?v=20261020v2';v.load();
  for(const b of document.querySelectorAll('[data-film]'))b.setAttribute('aria-pressed',String(b===button));
  for(const b of document.querySelectorAll('[data-seek]'))b.hidden=short;
 });

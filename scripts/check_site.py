@@ -26,12 +26,15 @@ for path in SITE.glob('*.js'):
  for link in re.findall(r"(?:from\s*|import\s*)['\"]([^'\"]+)['\"]",path.read_text()):
   if link.startswith('.') and not (path.parent/urlsplit(link).path).exists():missing.append((path.name,link))
 assert not missing,missing
-for file,seconds in [('neighbors.mp4',229),('one-graph.mp4',87)]:
+for file in ['neighbors.mp4','one-graph.mp4']:
  b=(SITE/'media'/file).read_bytes();assert b'ftyp' in b[:40] and len(b)>1000000,file
  assert 0<b.find(b'moov')<b.find(b'mdat'),file+' is not faststart'
  vtt=(SITE/'media'/file.replace('.mp4','.zh.vtt')).read_text();assert vtt.startswith('WEBVTT')
  assert '-->' in vtt
 assert sum(s['duration'] for s in json.loads((ROOT/'video/storyboard.json').read_text()))==229
+plan=json.loads((ROOT/'video/storyboard-v2.json').read_text())
+assert 189<plan['duration']<191 and len(plan['scenes'])==34
+for at in re.findall(r'data-seek="([0-9.]+)"',(SITE/'index.html').read_text()):assert float(at)<plan['duration']
 notes=json.loads((SITE/'downloads/notes.json').read_text());assert len(notes)==16
 assert len(list((SITE/'slides').glob('slide-*.png')))==16
 with zipfile.ZipFile(SITE/'downloads/label-propagation.pptx') as z:

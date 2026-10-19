@@ -12,15 +12,17 @@ Clustering Lab05 标签传播聚类的中文教学共建项目。作者 Su3037�
 
 | 内容 | 文件或入口 |
 | --- | --- |
-| 原创知识动画，3分49秒，1080p，无配音 | [MP4](site/media/neighbors.mp4) |
-| 五节点推演精讲，1分27秒 | [MP4](site/media/one-graph.mp4) |
+| 第二版二维知识动画，3分10秒，1080p，无配音 | [MP4](site/media/neighbors.mp4) |
+| 课堂慢速推演（首版），1分27秒 | [MP4](site/media/one-graph.mp4) |
 | 16页可编辑课件，带讲解备注 | [PPTX](site/downloads/label-propagation.pptx) |
 | 课件静态预览 | [PDF](site/downloads/label-propagation.pdf) |
 | 从零学习的中文讲义 | [讲义](docs/LEARN.md) |
 | 8道练习与解析 | [习题](docs/EXERCISES.md) |
-| 分镜与字幕 | [分镜](video/storyboard.json)、[文字稿](video/transcript.md)、[VTT](site/media/neighbors.zh.vtt) |
+| 分镜与字幕 | [第二版分镜](video/storyboard-v2.json)、[文字稿](video/transcript-v2.md)、[VTT](site/media/neighbors.zh.vtt) |
 | Python独立实现 | [源码](src/label_propagation.py) |
 | 研究与音乐来源 | [来源](docs/research/sources.md) |
+
+主片已按用户指定的《We Never (Remix)（若如初见）》Hi Noise / 秋成版本重新编排，34个二维镜头，音轨保持指定上传的原速度。第三方音乐不属于本项目CC许可；来源与实测节奏见 [第二版制作记录](docs/research/film-v2-study.md)。
 
 PDF是与PPT相同页面的图像预览，编辑请用PPTX。网页课件也可切页并阅读讲解备注。
 

@@ -1,25 +1,34 @@
 # 视频与课件的复现
 
-## 视频
+## 第二版主片（当前网站默认）
 
-运行需求：Node.js 20+、Python 3.10+、Pillow、NumPy、FFmpeg。macOS默认使用系统黑体和宋体，不分发字体文件。Linux可安装Noto CJK字体，或通过 `CLUSTER_SANS_FONT` 与 `CLUSTER_SERIF_FONT` 指定有使用权的字体路径。
+当前主片约3分10秒，34个二维镜头，1920×1080、30fps、H.264/AAC，无配音。没有使用写实生成图；场景、人物、物件与图形全部由代码绘制。字体需求同下方首版。
+
+音乐使用用户指定的《We Never (Remix)（若如初见）》Hi Noise / 秋成，[来源BV134Ho6qENu](https://www.bilibili.com/video/BV134Ho6qENu/)，保持原上传速度。第三方音乐不属于项目CC许可，不随源码提供独立歌曲文件；复现者需自行取得适用的音源。不要把第一版的原创配乐误当成第二版音轨。
+
+需要Node.js 20+、Python 3.10+、Pillow、NumPy、FFmpeg。将实际指定音源放在本地后：
 
 ```sh
-python3 -m pip install Pillow numpy
-node scripts/build-traces.mjs
-python3 scripts/render_film.py --preview
-python3 scripts/render_film.py
-python3 scripts/compose_score.py
-ffmpeg -ss 53 -i site/media/neighbors.mp4 -t 87 -c:v libx264 -preset fast -crf 21 -c:a aac -b:a 160k -movflags +faststart site/media/one-graph.mp4
+node scripts/build-film-v2.mjs
+python3 scripts/analyze_music.py /path/to/music.m4a build/private/research-v2/music-analysis.json
+python3 scripts/plan_film_v2.py
+python3 scripts/render_film_v2.py --music /path/to/music.m4a --preview
+python3 scripts/render_film_v2.py --music /path/to/music.m4a
 ```
 
-`render_film.py`把视频做成确定性时间函数，每帧由时间与真实算法记录计算。`--preview`生成12秒样片和全部分镜静帧，`--stills`只生成静帧。完整视频为1920×1080、30fps、229秒，使用H.264与AAC。
+已提供 `video/storyboard-v2.json`、`video/music-cues-v2.json` 和 `data/film-v2.json`，分别保存当前镜头、实际音频标记和引擎推演。若只复现同一音轨的成片，可跳过分析与重新分镜；更换音轨必须重新规划镜头，不能只换背景音乐。
 
-`video/storyboard.json`是分镜、时长与字幕的主来源。运行脚本会生成文字稿、VTT、封面与章节表。字幕已烧录在画面中，VTT用于可选独立字幕。视频没有旁白。
+分镜脚本先拟合约112.925 BPM节拍，再在附近寻找实际瞬态，并量化到30fps帧；动画的标签写回、物件入场等关键时刻使用该时间。主片音量整体降至源录音的0.45，留出峰值余量；不改变速度。字幕、封面、章节表由第二版渲染器生成。
 
-配乐由 `compose_score.py` 使用合成器音色、原创分解和弦与事件音产生。节点改变的音符与字幕结论出现在相同时刻。没有网络音乐采样或收费生成API。
+`tests/film-v2.test.mjs`检查新24节点图、反事实分组与引擎是否一致，并检查镜头覆盖、音频标记和动作时间的量化误差。自动时间检查不等同于人工听感评价，播放审阅仍然必要。
 
-替换为自己有权使用的音乐：`python3 scripts/compose_score.py --music /path/to/your-audio.mp3`。替换后应相应更新来源与许可说明。不要把网上能播放等同于可以再分发。
+## 第一版与课堂慢速推演
+
+网站另保留1分27秒的慢速五节点推演，来自第一版主片，适合课堂逐步讲解。`video/storyboard.json`、`render_film.py`、`compose_score.py`保留为第一版源工程，与第二版分开。
+
+第一版运行需求：Node.js 20+、Python 3.10+、Pillow、NumPy、FFmpeg。macOS默认使用系统黑体和宋体，不分发字体文件。Linux可安装Noto CJK字体，或通过 `CLUSTER_SANS_FONT` 与 `CLUSTER_SERIF_FONT` 指定字体路径。
+
+第一版原片229秒、原创合成配乐。重新构建时请先备份当前 `neighbors.mp4` 等文件，避免首版脚本覆盖第二版默认成片。课堂精讲是首版53–140秒的片段，不是第二版同一时间范围的片段。
 
 ## 可编辑课件
 
