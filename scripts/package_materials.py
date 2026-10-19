@@ -36,4 +36,5 @@ for s in json.loads((ROOT/'video/storyboard.json').read_text()):
   if a>=53 and b<=140:vtt.extend([f'{stamp(a-53)} --> {stamp(b-53)}',cap,''])
  t+=s['duration']
 (ROOT/'site/media/one-graph.zh.vtt').write_text('\n'.join(vtt),encoding='utf-8')
+for source,name in [('LICENSE','LICENSE.txt'),('LICENSE-CONTENT.md','LICENSE-CONTENT.md'),('THIRD_PARTY_NOTICES.md','THIRD_PARTY_NOTICES.md')]:shutil.copyfile(ROOT/source,dest/name)
 print('Packaged PDF preview, notes, transcript, 8 exercises and reference implementation')
