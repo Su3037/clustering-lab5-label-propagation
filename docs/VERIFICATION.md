@@ -30,4 +30,9 @@
 
 ## 部署
 
-GitHub已接受私有仓库的公开Pages配置。首次推送发现CLI缺少workflow权限，已请求补充授权；线上部署与公开网址验证完成后补充此节。未在老师Issue发表评论或关闭Issue。
+- GitHub Actions测试及部署成功：[运行39290218104](https://github.com/Su3037/clustering-lab5-label-propagation/actions/runs/39290218104)，网站提交56de7b39820c5ee1b106823e49c8e3684680aa7d。
+- 仓库API确认private=true；[公开网站](https://su3037.github.io/clustering-lab5-label-propagation/)无需GitHub登录。
+- 公开首页、PPTX、PDF、精讲MP4、课件第8页图片、中文讲义的HTTP请求均返回200；主片bytes=0-1返回206与正确Content-Range。
+- 线上浏览器自动化读取持续超时，未取得公开页面截图，也未把线上UI复测记为通过。前述互动、响应式和媒体浏览器检查在相同发布文件的本地预览完成，公开站点额外完成HTTP资源验证。
+- 教学网站为静态文件，实验在访客浏览器执行，不连接作者Mac。仓库源码保持私密，发布到site目录的教材、媒体与网页可被公众访问。
+- 未在老师Issue发表评论或关闭Issue，等待用户审阅。
