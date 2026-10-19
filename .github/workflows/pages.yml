@@ -2,6 +2,16 @@ name: Verify and deploy teaching site
 on:
   push:
     branches: [main]
+    paths:
+      - 'site/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'data/**'
+      - 'video/**'
+      - 'presentation/**'
+      - 'package.json'
+      - '.github/workflows/**'
   workflow_dispatch:
 permissions:
   contents: read
