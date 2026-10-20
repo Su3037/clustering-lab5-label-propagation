@@ -38,11 +38,20 @@ html=(SITE/'index.html').read_text()
 for at in re.findall(r'data-seek(?:-film)?="([0-9.]+)"',html):assert float(at)<plan['duration'],at
 chapters={round(c['start'],2) for c in json.loads((ROOT/'video/chapters-v4.json').read_text())}
 for at in re.findall(r'data-seek="([0-9.]+)"',html):assert round(float(at),2) in chapters|{0.0},at
-notes=json.loads((SITE/'downloads/notes.json').read_text());assert len(notes)==16
-assert len(list((SITE/'slides').glob('slide-*.png')))==16
+SLIDES=18
+notes=json.loads((SITE/'downloads/notes.json').read_text());assert len(notes)==SLIDES
+assert notes==json.loads((ROOT/'presentation/notes.json').read_text())
+assert len(list((SITE/'slides').glob('slide-*.png')))==SLIDES
 with zipfile.ZipFile(SITE/'downloads/label-propagation.pptx') as z:
- assert len([n for n in z.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml',n)])==16
- assert len([n for n in z.namelist() if re.fullmatch(r'ppt/notesSlides/notesSlide\d+\.xml',n)])==16
+ assert len([n for n in z.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml',n)])==SLIDES
+ assert len([n for n in z.namelist() if re.fullmatch(r'ppt/notesSlides/notesSlide\d+\.xml',n)])==SLIDES
+ deck=''.join(z.read(n).decode('utf-8') for n in z.namelist() if n.startswith('ppt/') and n.endswith('.xml'))
+# Earlier film versions (邻居的颜色, 3:49, the library story) must not leak back into what visitors see.
+STALE=['邻居的颜色','图书馆','3分49','3 分 49']
+for w in STALE:assert w not in deck,('pptx',w)
+for path in [*SITE.glob('*.html'),*SITE.glob('*.js'),*(SITE/'downloads').glob('*.md'),*(SITE/'downloads').glob('*.json'),ROOT/'README.md',*(ROOT/'docs').glob('*.md')]:
+ t=path.read_text(encoding='utf-8')
+ for w in STALE:assert w not in t,(str(path.relative_to(ROOT)),w)
 for f in ['learn.md','sources.md','exercises.md','transcript.md','label-propagation.pdf','golden.json','label_propagation.py']:
  assert (SITE/'downloads'/f).stat().st_size>20,f
 assert (SITE/'downloads/label-propagation.pdf').read_bytes().startswith(b'%PDF')
@@ -50,4 +59,4 @@ for path in SITE.rglob('*'):
  if path.is_file() and path.suffix in ['.html','.js','.css','.json','.md']:
   s=path.read_text(encoding='utf-8');assert '/Users/' not in s,path
   if path.suffix in ['.js','.html']:assert 'localhost:8785' not in s,path
-print('PASS: HTML paths, anchors, module imports, faststart media, film v4 chapters, 16 slides and notes, downloads and public path hygiene.')
+print('PASS: HTML paths, anchors, module imports, faststart media, film v4 chapters, 18 slides and notes, no stale film-version text, downloads and public path hygiene.')

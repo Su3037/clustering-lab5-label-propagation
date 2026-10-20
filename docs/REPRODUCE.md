@@ -25,63 +25,35 @@ ffmpeg -i picture.mp4 -stream_loop 1 -i music.m4a -map 0:v -map 1:a -c:v copy \
 
 网站与闯关使用的通讯录、电路图由 `node scripts/build-site-graphs.mjs` 导出到 `site/film-graphs.js`，`tests/site-quest.test.mjs` 检查它们与短片数据一致。剧本修改过程见 [第四版剧本说明](research/film-v4-script.md)。`scripts/render_film_v3.py` 是第三版（3 分 10 秒）的渲染器，第四版复用它的场景。
 
-## 第二版主片
-
-当前主片约3分10秒，34个二维镜头，1920×1080、30fps、H.264/AAC，无配音。没有使用写实生成图；场景、人物、物件与图形全部由代码绘制。字体需求同下方首版。
-
-音乐使用用户指定的《We Never (Remix)（若如初见）》Hi Noise / 秋成，[来源BV134Ho6qENu](https://www.bilibili.com/video/BV134Ho6qENu/)，保持原上传速度。第三方音乐不属于项目CC许可，不随源码提供独立歌曲文件；复现者需自行取得适用的音源。不要把第一版的原创配乐误当成第二版音轨。
-
-需要Node.js 20+、Python 3.10+、Pillow、NumPy、FFmpeg。将实际指定音源放在本地后：
+## 课件（PPTX、PDF 与网页预览）
 
 ```sh
-node scripts/build-film-v2.mjs
-python3 scripts/analyze_music.py /path/to/music.m4a build/private/research-v2/music-analysis.json
-python3 scripts/plan_film_v2.py
-python3 scripts/render_film_v2.py --music /path/to/music.m4a --preview
-python3 scripts/render_film_v2.py --music /path/to/music.m4a
+python3 -m pip install python-pptx pycairo
+python3 scripts/build_deck.py
 ```
 
-已提供 `video/storyboard-v2.json`、`video/music-cues-v2.json` 和 `data/film-v2.json`，分别保存当前镜头、实际音频标记和引擎推演。若只复现同一音轨的成片，可跳过分析与重新分镜；更换音轨必须重新规划镜头，不能只换背景音乐。
+`scripts/build_deck.py` 用一份页面描述生成三种输出：可编辑的 `site/downloads/label-propagation.pptx`（文字、节点、连线和表格都是原生对象，每页带讲解备注），矢量 `label-propagation.pdf`，以及 `site/slides/slide-NN.png` 网页预览。讲解备注同时写入 `presentation/notes.json` 与 `site/downloads/notes.json`。
 
-分镜脚本先拟合约112.925 BPM节拍，再在附近寻找实际瞬态，并量化到30fps帧；动画的标签写回、物件入场等关键时刻使用该时间。主片音量整体降至源录音的0.45，留出峰值余量；不改变速度。字幕、封面、章节表由第二版渲染器生成。
+18 页的顺序与短片一致：第 2–6 页对应上篇（通讯录、2007 年的办法、芯片、尺子与穷举、一条规则与六个问题），第 7–15 页对应下篇九层，第 16 页是现实中的用法，第 17 页课堂互动，第 18 页来源与许可。图上的标签、票数、轮数和 cutsize 都读自 `data/film-v3.json` 和 `site/film-graphs.js`，脚本开头会断言关键数字（通讯录 3 轮、cut 4；电路 5 轮、cut 2；尺子 88/202；老师的图 2 轮、cut 3）。
 
-`tests/film-v2.test.mjs`检查新24节点图、反事实分组与引擎是否一致，并检查镜头覆盖、音频标记和动作时间的量化误差。自动时间检查不等同于人工听感评价，播放审阅仍然必要。
-
-## 第一版与课堂慢速推演
-
-网站另保留1分27秒的慢速五节点推演，来自第一版主片，适合课堂逐步讲解。`video/storyboard.json`、`render_film.py`、`compose_score.py`保留为第一版源工程，与第二版分开。
-
-第一版运行需求：Node.js 20+、Python 3.10+、Pillow、NumPy、FFmpeg。macOS默认使用系统黑体和宋体，不分发字体文件。Linux可安装Noto CJK字体，或通过 `CLUSTER_SANS_FONT` 与 `CLUSTER_SERIF_FONT` 指定字体路径。
-
-第一版原片229秒、原创合成配乐。重新构建时请先备份当前 `neighbors.mp4` 等文件，避免首版脚本覆盖第二版默认成片。课堂精讲是首版53–140秒的片段，不是第二版同一时间范围的片段。
-
-## 可编辑课件
-
-`site/downloads/label-propagation.pptx`的文字、图节点、连线和5张表格均为可编辑对象，封面引用本项目原创视频的一帧。无需重建就可以在PowerPoint等应用中修改。源工程是 `scripts/build_deck.mjs`。
-
-本次构建使用Codex内置的 `@oai/artifact-tool` 2.8.99；这是实际使用环境，不假定它可以通过公共npm安装。脚本通过环境变量读取技能目录、Python与Node依赖位置。若有相同运行环境，可执行：
-
-```sh
-PRESENTATION_SKILL_DIR=/path/to/presentations/skill \
-RUNTIME_PYTHON=/path/to/python3 \
-RUNTIME_NODE=/path/to/node \
-RUNTIME_NODE_MODULES=/path/to/node_modules \
-node scripts/build_deck.mjs
-```
-
-在项目根目录链接相应 `node_modules` 后运行。构建器先渲染，再检查PPTX结构、尺寸、字体声明、原生表格和重新导入。最终目标文件已存在时，改用新文件名生成修订版，避免覆盖审阅稿。
-
-工具的直接PDF导出缺少内置字体资源，因此本项目使用ReportLab把同一批渲染页包装成PDF预览。PDF不是编辑源文件，编辑请使用PPTX。网页预览也来自这批渲染页，并提供每页备注。
+PDF 与预览图嵌入 Noto CJK 字形；PPTX 声明 PingFang SC 与 Songti SC，在 Windows 上会被替换为系统中文字体，版面以 PDF 为准。
 
 ## 打包下载材料
 
 ```sh
-python3 -m pip install reportlab
 python3 scripts/package_materials.py
 ```
 
-该步骤复制讲义、练习、备注、独立Python实现和样例JSON到网站下载区。习题正文由 `site/questions.js` 单一来源生成。静态站点的日常部署不重新渲染视频或PPT，直接发布已验证的文件。
+把第四版文字稿、九层讲义、来源、许可、独立 Python 实现和样例图复制到网站下载区，并从 `site/questions.js` 重新生成 `docs/EXERCISES.md` 与 `site/downloads/exercises.md`。日常部署不重新渲染视频或课件，直接发布已验证的文件。`python3 scripts/check_site.py` 会检查课件页数、备注一致，并确认网站、课件和文档里没有旧版短片的内容。
 
 ## 数据一致性
 
-JS引擎 `site/algorithm.js` 独立实现LP；`build-traces.mjs`运行它后产生 `data/traces.json`，视频与课件读取同一份推演记录。Python实现使用另一份逻辑，与JS交叉核对。图的结构与权重引用教师小图并标注来源，未分发教师原课件和视频。
+JS 引擎 `site/algorithm.js` 独立实现 LP；`scripts/build-film-v3.mjs` 运行它生成 `data/film-v3.json`，短片、课件、网站闯关读取同一份结果。Python 实现 `src/label_propagation.py` 使用另一份逻辑，`tests/crosscheck.py` 和 `tests/film_v3_crosscheck.py` 与 JS 交叉核对。图的结构与权重引用教师小图并标注来源，未分发教师原课件和视频。
+
+## 历史版本
+
+仓库保留前几版的源工程，便于追溯，但网站和课件只使用第四版。各文件的对应关系见 [video/README.md](../video/README.md)。
+
+- 第三版（3 分 10 秒）：`scripts/render_film_v3.py`、`video/storyboard-v3.json`。第四版复用它的场景，所以渲染器仍需保留。
+- 第二版（约 3 分 10 秒，34 个二维镜头）：`scripts/build-film-v2.mjs`、`plan_film_v2.py`、`render_film_v2.py`、`analyze_music.py`，数据 `data/film-v2.json`，测试 `tests/film-v2.test.mjs`。
+- 第一版（229 秒，原创合成配乐）：`scripts/render_film.py`、`compose_score.py`、`video/storyboard.json`。网站上的 1 分 27 秒课堂慢速推演 `one-graph.mp4` 是第一版 53–140 秒的片段。
