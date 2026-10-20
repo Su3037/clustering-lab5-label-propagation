@@ -9,8 +9,8 @@ class Ranges(unittest.TestCase):
  def setUpClass(cls):
   cls.server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
   cls.thread=threading.Thread(target=cls.server.serve_forever,daemon=True);cls.thread.start()
-  cls.url=f'http://127.0.0.1:{cls.server.server_port}/media/neighbors.mp4'
-  cls.size=(ROOT/'site/media/neighbors.mp4').stat().st_size
+  cls.url=f'http://127.0.0.1:{cls.server.server_port}/media/circles.mp4'
+  cls.size=(ROOT/'site/media/circles.mp4').stat().st_size
  @classmethod
  def tearDownClass(cls):cls.server.shutdown();cls.server.server_close();cls.thread.join()
  def test_initial_probe(self):

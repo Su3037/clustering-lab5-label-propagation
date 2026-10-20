@@ -1,0 +1,229 @@
+WEBVTT
+
+00:00:00.600 --> 00:00:04.600
+Open your contacts: hundreds of names.
+
+00:00:04.800 --> 00:00:10.500
+How would you sort them into circles?
+
+00:00:11.000 --> 00:00:14.200
+You don't need to know who anyone is.
+
+00:00:14.400 --> 00:00:17.200
+Just look at who keeps in touch with whom.
+
+00:00:25.000 --> 00:00:29.000
+A good grouping: tight inside, few links between.
+
+00:00:29.200 --> 00:00:34.000
+Network science calls this community detection.
+
+00:00:34.400 --> 00:00:38.400
+In 2007, three researchers proposed a strikingly simple method.
+
+00:00:38.600 --> 00:00:42.600
+Each person checks which circle their friends are in now,
+
+00:00:42.800 --> 00:00:46.800
+and joins the one they are most connected to.
+
+00:00:47.000 --> 00:00:51.000
+Repeat, and the circles appear on their own.
+
+00:00:51.400 --> 00:00:55.400
+The same problem hides inside every chip.
+
+00:00:55.600 --> 00:00:59.600
+Millions of cells, wired into one network.
+
+00:00:59.800 --> 00:01:03.800
+To design it, EDA software first splits them into blocks.
+
+00:01:04.000 --> 00:01:08.000
+Why does the split matter?
+
+00:01:08.400 --> 00:01:12.400
+Cells in the same block connect with short wires.
+
+00:01:12.600 --> 00:01:16.600
+Cells in different blocks need long wires.
+
+00:01:16.800 --> 00:01:20.800
+Longer wires mean slower signals and more power.
+
+00:01:21.000 --> 00:01:25.000
+So the goal matches your contacts: tight inside, few between.
+
+00:01:25.400 --> 00:01:29.400
+Take a small example: 24 cells.
+
+00:01:29.600 --> 00:01:33.600
+The obvious approach: a ruler, three blocks by position.
+
+00:01:33.800 --> 00:01:37.600
+Neat. But how much wiring does it cut?
+
+00:01:37.800 --> 00:01:42.300
+It cuts weight 88 out of 202: almost half.
+
+00:01:42.700 --> 00:01:46.700
+Then why not try every split and keep the best?
+
+00:01:46.900 --> 00:01:50.900
+24 cells into three equal groups: about 1.58 billion ways.
+
+00:01:51.100 --> 00:01:55.100
+A million cells? The count itself has 477,121 digits.
+
+00:01:55.300 --> 00:01:59.100
+Trying them one by one would never finish.
+
+00:01:59.500 --> 00:02:03.500
+So borrow the rule from your contacts:
+
+00:02:03.700 --> 00:02:07.700
+each cell looks at its neighbours' current labels,
+
+00:02:07.900 --> 00:02:11.900
+and joins the group it is most strongly wired to.
+
+00:02:12.100 --> 00:02:16.000
+This is label propagation.
+
+00:02:16.600 --> 00:02:21.000
+One sentence of rule, but the details matter:
+
+00:02:21.400 --> 00:02:26.000
+What counts as strongest? Who updates first?
+
+00:02:26.400 --> 00:02:31.000
+When does it stop? Does it always stop?
+
+00:02:33.600 --> 00:02:38.400
+In part two, we take it apart layer by layer on the teacher's five-node graph.
+
+00:02:39.000 --> 00:02:46.000
+Pause here: how would you answer them?
+
+00:02:57.000 --> 00:03:05.000
+Nine layers, from shallow to deep.
+
+00:03:10.400 --> 00:03:14.400
+Layer one: labels.
+
+00:03:14.600 --> 00:03:20.400
+At the start, every node's label is its own name.
+
+00:03:20.800 --> 00:03:24.000
+The name is its identity and never changes;
+
+00:03:24.200 --> 00:03:27.100
+the label is where it belongs, and it can be rewritten.
+
+00:03:27.400 --> 00:03:31.400
+Layer two: what counts as strongest?
+
+00:03:31.600 --> 00:03:35.800
+Of A's three neighbours, B and C carry label B, D carries D.
+
+00:03:36.000 --> 00:03:41.600
+By headcount B has two votes; by weight B has 2 and D has 4.
+
+00:03:42.100 --> 00:03:47.300
+So the rule: add up edge weights per label, take the largest.
+
+00:03:47.600 --> 00:03:52.000
+Layer three: one update. Watch C.
+
+00:03:52.200 --> 00:03:56.400
+Neighbours A and B already carry B; D carries D, E carries E.
+
+00:03:56.600 --> 00:04:00.800
+Same labels add up first: B is 1 + 4 = 5, D is 2, E is 1.
+
+00:04:01.200 --> 00:04:05.400
+Layer four: a full round, A to E in order.
+
+00:04:05.600 --> 00:04:09.600
+B already sees A's new label: this is asynchronous updating.
+
+00:04:09.800 --> 00:04:13.600
+C becomes B, the step we just saw.
+
+00:04:13.800 --> 00:04:17.900
+D becomes E, E stays. Round one ends.
+
+00:04:18.200 --> 00:04:22.200
+Layer five: when to stop? Ask every node again.
+
+00:04:22.400 --> 00:04:26.400
+A whole round, and no node changes.
+
+00:04:26.600 --> 00:04:30.600
+Only a full round with zero changes confirms it is stable.
+
+00:04:30.800 --> 00:04:34.900
+Otherwise a later change could force an earlier node to change again.
+
+00:04:35.400 --> 00:04:39.400
+Layer six: what if every node updates at once?
+
+00:04:39.600 --> 00:04:43.600
+Two nodes, each reading the other's old label...
+
+00:04:43.800 --> 00:04:47.800
+A becomes B, B becomes A, and back again: it never stops.
+
+00:04:48.000 --> 00:04:52.200
+Taking turns, B reads A's new label and they agree.
+
+00:04:52.600 --> 00:04:56.600
+Layer seven: is the split good? Look at the cut edges.
+
+00:04:56.800 --> 00:05:00.800
+C–D has weight 2, C–E has weight 1.
+
+00:05:01.000 --> 00:05:05.000
+Cutsize is the sum of cut weights: 2 + 1 = 3.
+
+00:05:05.200 --> 00:05:09.000
+Strengthen C–D to 10 and the boundary moves.
+
+00:05:09.400 --> 00:05:13.400
+Layer eight: back to the 24 cells, each starting with its own label.
+
+00:05:13.600 --> 00:05:17.600
+Colour spreads along the strongest wires.
+
+00:05:17.800 --> 00:05:21.800
+Each round reads every wire twice: the work grows with the number of wires.
+
+00:05:22.000 --> 00:05:25.900
+Round 5: no changes. It cuts 2; the ruler cut 88.
+
+00:05:26.200 --> 00:05:30.200
+Layer nine: what it cannot do.
+
+00:05:30.400 --> 00:05:34.400
+It promises neither the number of groups nor equal sizes.
+
+00:05:34.600 --> 00:05:38.600
+Change the visiting order and label names and round counts can change.
+
+00:05:38.800 --> 00:05:42.900
+It gives a clue, not a final answer.
+
+00:05:43.200 --> 00:05:47.200
+In chip design, clustering often first gathers tightly wired cells,
+
+00:05:47.400 --> 00:05:51.300
+shrinking the netlist before finer partitioning and placement.
+
+00:05:51.600 --> 00:05:56.000
+Circles in your contacts and blocks in a chip are the same problem.
+
+00:05:56.200 --> 00:06:00.300
+No one draws the circles. They grow out of the connections.
+
+00:06:01.000 --> 00:06:06.000
+Open the lab, change one edge weight, and watch the boundary move.

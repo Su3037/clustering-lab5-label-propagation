@@ -1,10 +1,14 @@
-import {QUESTIONS} from './questions.js?v=20261020a';
-import {GOLDEN,PRESETS,Propagation,metrics,votesFor,chooseLabel,validateGraph} from './algorithm.js?v=20261020a';
+import {QUESTIONS} from './questions.js?v=20261020c';
+import {GOLDEN,PRESETS as BASE,Propagation,metrics,votesFor,chooseLabel,validateGraph} from './algorithm.js?v=20261020c';
+import {CONTACTS,CHIP} from './film-graphs.js?v=20261020c';
+const PRESETS={...BASE,contacts:CONTACTS,chip:CHIP};
+const nameOf=(n,g=graph)=>g.names?.[n]||n;
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg';
 const palette=['#a57a20','#0f7966','#b76529','#315cba','#a44170','#8051a0','#397f85','#84672e'];
 let graph=structuredClone(GOLDEN),engine=null,timer=null,last=null,toastTimer=null;
 let missions={};try{missions=JSON.parse(localStorage.getItem('lp-lab5-missions')||'{}')||{};}catch{}
-function color(n,g=graph){return palette[Math.max(0,g.nodes.indexOf(n))%palette.length];}
+let cmap=null;// big graphs: colour the labels present right now, so groups never share a colour
+function color(n,g=graph){if(g.nodes.length>12&&cmap?.has(n))return palette[[0,1,3,4,5,2,6,7][cmap.get(n)%8]];return palette[Math.max(0,g.nodes.indexOf(n))%palette.length];}
 function node(tag,attrs={},text=''){
  const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,String(v));if(text)el.textContent=text;return el;
 }
@@ -19,6 +23,7 @@ function posFor(g){
 }
 function draw(svg,g,labels,active=null,interactive=false){
  svg.replaceChildren();const pos=posFor(g);
+ if(g.nodes.length>12){cmap=new Map([...new Set(g.nodes.map(n=>labels[n]))].sort().map((l,i)=>[l,i]));return drawSmall(svg,g,labels,active,interactive,pos);}
  for(const[u,v,w]of g.edges){
   const a=pos[u],b=pos[v],cross=labels[u]!==labels[v],focus=u===active||v===active;
   svg.append(node('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:focus?'#977129':cross?'#b79f70':'#99b9a9','stroke-width':focus?4:1.3+Math.min(w,10)*.4,class:'edge'}));
@@ -33,6 +38,15 @@ function draw(svg,g,labels,active=null,interactive=false){
   svg.append(group);
  }
 }
+function drawSmall(svg,g,labels,active,interactive,pos){
+ for(const[u,v,w]of g.edges){const a=pos[u],b=pos[v],same=labels[u]===labels[v],focus=u===active||v===active;
+  svg.append(node('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:focus?'#977129':same?color(labels[u],g):'#c9bfae','stroke-width':focus?3:.6+w*.45,'stroke-opacity':same||focus?.8:.55}));}
+ for(const n of g.nodes){const[x,y]=pos[n],group=node('g',{class:'node',...(interactive?{tabindex:0,role:'button','aria-label':`${nameOf(n,g)}，当前标签 ${nameOf(labels[n],g)}，查看票数`}:{})});
+  if(n===active)group.append(node('circle',{cx:x,cy:y,r:19,fill:'none',stroke:'#ae893f','stroke-width':1.5}));
+  group.append(node('circle',{cx:x,cy:y,r:11,fill:'#fffdf8',stroke:color(labels[n],g),'stroke-width':3.2}),node('text',{x,y:y-16,'text-anchor':'middle',fill:'#33433b','font-size':12},nameOf(n,g)));
+  if(interactive){const inspect=()=>inspectNode(n);group.addEventListener('click',inspect);group.addEventListener('keydown',e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();inspect();}});}
+  svg.append(group);}
+}
 function stop(){clearInterval(timer);timer=null;$('#play').textContent='自动播放';}
 function options(){return {mode:$('#mode').value,tie:$('#tie').value,order:$('#order').value.trim().split(/[\s,，]+/).filter(Boolean)};}
 function apply(){
@@ -41,7 +55,7 @@ function apply(){
 function inspector(votes,title,decision){
  $('#vote-title').textContent=title;$('#votes').replaceChildren();const max=Math.max(1,...Object.values(votes));
  for(const[n,w]of Object.entries(votes).sort()){
-  const row=document.createElement('div');row.className='vote-row';const label=document.createElement('span');label.textContent=n;label.style.minWidth='18px';
+  const row=document.createElement('div');row.className='vote-row';const label=document.createElement('span');label.textContent=nameOf(n);label.style.minWidth='18px';
   const bar=document.createElement('span');bar.className='vote-bar';bar.style.width=(w/max*155)+'px';bar.style.background=color(n);
   const val=document.createElement('strong');val.textContent=Number(w.toFixed(8)).toString();row.append(label,bar,val);$('#votes').append(row);
  }
@@ -68,7 +82,7 @@ function render(){
   const n=engine.order[0],{votes}=votesFor(graph,engine.labels,n);inspector(votes,'下一位：'+n,'可以先预测，再点“更新一个节点”。');
  }
  $('#legend').replaceChildren();for(const[n,arr]of Object.entries(m.clusters)){
-  const span=document.createElement('span'),i=document.createElement('i');i.style.background=color(n);span.append(i,document.createTextNode(`${n}：${arr.join('、')}`));$('#legend').append(span);
+  const span=document.createElement('span'),i=document.createElement('i');i.style.background=color(n);span.append(i,document.createTextNode(`${nameOf(n)}：${arr.map(x=>nameOf(x)).join('、')}`));$('#legend').append(span);
  }
  $('#trace').replaceChildren();for(const e of engine.history){
   const tr=document.createElement('tr');for(const val of [e.round,e.node,e.old,Object.entries(e.votes).map(([k,v])=>k+':'+Number(v.toFixed(8))).join(' / ')||'无邻居',e.label,e.mode==='async'?'立即':e.roundEnd?'本轮统一提交':'待轮末提交']){
@@ -119,8 +133,8 @@ $('#export').addEventListener('click',()=>{
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
 for(const button of document.querySelectorAll('[data-film]'))button.addEventListener('click',()=>{
- const short=button.dataset.film==='short',v=$('#film-player');v.pause();v.src=short?'media/one-graph.mp4':'media/neighbors.mp4';v.poster=short?'media/one-graph.jpg':'media/cover.jpg';
- v.querySelector('track').src=short?'media/one-graph.zh.vtt':'media/neighbors.zh.vtt';v.load();
+ const short=button.dataset.film==='short',v=$('#film-player');v.pause();v.src=short?'media/one-graph.mp4':'media/circles.mp4?v=20261020c';v.poster=short?'media/one-graph.jpg':'media/circles-cover.jpg?v=20261020c';
+ const [zh,en]=v.querySelectorAll('track');zh.src=short?'media/one-graph.zh.vtt':'media/circles.zh.vtt?v=20261020c';en.hidden=short;if(!short)en.src='media/circles.en.vtt?v=20261020c';v.load();
  for(const b of document.querySelectorAll('[data-film]'))b.setAttribute('aria-pressed',String(b===button));
  for(const b of document.querySelectorAll('[data-seek]'))b.hidden=short;
 });
@@ -137,4 +151,15 @@ for(const[qidx,q]of questions.entries()){
  const choices=document.createElement('div');choices.className='answers';const feedback=document.createElement('p');feedback.className='answer-feedback';feedback.setAttribute('aria-live','polite');
  q.a.forEach((answer,i)=>{const b=document.createElement('button');b.textContent=answer;b.addEventListener('click',()=>{for(const old of choices.children){old.classList.remove('wrong','correct');old.setAttribute('aria-pressed','false');}b.setAttribute('aria-pressed','true');b.classList.add(i===q.correct?'correct':'wrong');feedback.textContent=(i===q.correct?'正确。':'再想一想。')+q.e;if(i===q.correct&&q.mission)saveMission(q.mission);});choices.append(b);});article.append(title,choices,feedback);$('#questions').append(article);
 }
-renderMissions();draw($('#hero-graph'),GOLDEN,{A:'B',B:'B',C:'B',D:'E',E:'E'});apply();
+// Seek the main film from the story, the nine layers and the quest.
+function seekFilm(at){
+ const main=document.querySelector('[data-film="main"]');if(main.getAttribute('aria-pressed')!=='true')main.click();
+ const v=$('#film-player'),begin=()=>{v.currentTime=at;v.play().catch(()=>{});};
+ $('#film').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ if(v.readyState>=1&&Number.isFinite(v.duration))begin();else v.addEventListener('loadedmetadata',begin,{once:true});
+}
+for(const b of document.querySelectorAll('[data-seek-film]'))b.addEventListener('click',()=>seekFilm(Number(b.dataset.seekFilm)));
+window.addEventListener('seek-film',e=>seekFilm(e.detail));
+renderMissions();
+{const r=new Propagation(CONTACTS).run();draw($('#hero-graph'),{...CONTACTS,positions:CONTACTS.gathered},r.labels);}
+apply();

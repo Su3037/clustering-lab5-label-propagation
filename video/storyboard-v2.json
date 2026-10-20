@@ -1,0 +1,528 @@
+{
+  "version": 2,
+  "fps": 30,
+  "duration": 189.83333333333334,
+  "music": {
+    "title": "We Never (Remix)（若如初见）",
+    "artists": "Hi Noise / 秋成",
+    "source": "https://www.bilibili.com/video/BV134Ho6qENu/",
+    "speed": 1,
+    "estimatedBPM": 112.925,
+    "note": "User-selected exact upload; no additional 0.9x change. Third-party recording, excluded from project CC license."
+  },
+  "scenes": [
+    {
+      "id": "book",
+      "visual": "circuit-hook",
+      "start": 0,
+      "chapter": "序 · 一个问题",
+      "title": "按位置分，还是按连接分？",
+      "caption": "这些电路单元，你会按什么分组？",
+      "camera": "close / book opens and moves",
+      "duration": 4.1,
+      "actions": [
+        0.9,
+        2.066666666666667,
+        3.033333333333333
+      ]
+    },
+    {
+      "id": "library",
+      "visual": "geometric",
+      "start": 4.1,
+      "chapter": "序 · 一个问题",
+      "title": "先试一条最直观的办法",
+      "caption": "按位置，整齐地划成三块。",
+      "camera": "wide / people walk and pass books",
+      "duration": 4.800000000000001,
+      "actions": [
+        1.0666666666666673,
+        2.1333333333333337,
+        3.2
+      ]
+    },
+    {
+      "id": "table",
+      "visual": "crossing",
+      "start": 8.9,
+      "chapter": "序 · 冲突",
+      "title": "整齐的边界，切散了紧密的联系",
+      "caption": "跨组连接亮了起来：这份方案的权重和是 242。",
+      "camera": "overhead / book paths are drawn",
+      "duration": 4.333333333333332,
+      "actions": [
+        1.0666666666666664,
+        2.1999999999999993,
+        3.2666666666666657
+      ]
+    },
+    {
+      "id": "morph",
+      "visual": "local",
+      "start": 13.233333333333333,
+      "chapter": "序 · 另一种办法",
+      "title": "如果每次，只看邻居呢？",
+      "caption": "不先画边界，让每个单元读一读相邻的标签。",
+      "camera": "match move / bookmarks become nodes",
+      "duration": 3.700000000000001,
+      "actions": [
+        1.033333333333335,
+        2.1000000000000014,
+        3.166666666666666
+      ]
+    },
+    {
+      "id": "title",
+      "visual": "title",
+      "start": 16.933333333333334,
+      "chapter": "LABEL PROPAGATION",
+      "title": "邻居的颜色",
+      "caption": "一条局部规则，如何长出整体的形状？",
+      "camera": "music lift / title assembles",
+      "duration": 4.266666666666666,
+      "actions": [
+        1.0,
+        2.0666666666666664,
+        3.133333333333333
+      ]
+    },
+    {
+      "id": "tags",
+      "visual": "tags",
+      "start": 21.2,
+      "chapter": "01 · 一条规则",
+      "title": "先给每个点一个标签",
+      "caption": "节点的名字不变；标签可以在更新中改变。",
+      "camera": "top-down / five tags drop onto a page",
+      "duration": 4.766666666666666,
+      "actions": [
+        1.0,
+        2.0666666666666664,
+        3.133333333333333
+      ]
+    },
+    {
+      "id": "weight-people",
+      "visual": "weight",
+      "start": 25.966666666666665,
+      "chapter": "01 · 一条规则",
+      "title": "两条细连接，还是一条粗连接？",
+      "caption": "两位邻居支持 B，一位支持 D。先别急着数人。",
+      "camera": "front / two small weights and one large weight",
+      "duration": 4.266666666666669,
+      "actions": [
+        1.033333333333335,
+        2.06666666666667,
+        3.1333333333333364
+      ]
+    },
+    {
+      "id": "weight-scale",
+      "visual": "weighted",
+      "start": 30.233333333333334,
+      "chapter": "01 · 一条规则",
+      "title": "数的是权重",
+      "caption": "B 的权重是 1＋1；D 的权重是 4。D 胜。",
+      "camera": "macro / scale visibly tips toward D",
+      "duration": 4.199999999999996,
+      "actions": [
+        1.0,
+        2.066666666666663,
+        3.133333333333333
+      ]
+    },
+    {
+      "id": "sum",
+      "visual": "tokens",
+      "start": 34.43333333333333,
+      "chapter": "01 · 一条规则",
+      "title": "同一种标签，累计到一起",
+      "caption": "先按标签归类，再把对应边权相加。",
+      "camera": "overhead / 1 and 4 chips collect into B vessel",
+      "duration": 4.800000000000004,
+      "actions": [
+        1.06666666666667,
+        2.13333333333334,
+        3.200000000000003
+      ]
+    },
+    {
+      "id": "setup",
+      "visual": "board",
+      "start": 39.233333333333334,
+      "chapter": "02 · 五节点实验",
+      "title": "先用五个点，看清一次更新",
+      "caption": "按 A 到 E 访问；平票时取字典序最小标签。",
+      "camera": "wide / board and queue enter",
+      "duration": 3.7333333333333343,
+      "actions": [
+        1.0666666666666629,
+        2.133333333333333,
+        3.1999999999999957
+      ]
+    },
+    {
+      "id": "a",
+      "visual": "visit",
+      "start": 42.96666666666667,
+      "chapter": "02 · 五节点实验",
+      "title": "A 收到 B 的 5 票",
+      "caption": "A 选择 B；新标签立即写回，这叫异步更新。",
+      "camera": "push / packets arrive then A changes",
+      "event": 0,
+      "duration": 4.766666666666666,
+      "actions": [
+        1.0333333333333314,
+        2.1000000000000014,
+        3.1666666666666643
+      ]
+    },
+    {
+      "id": "b",
+      "visual": "visit",
+      "start": 47.733333333333334,
+      "chapter": "02 · 五节点实验",
+      "title": "B 已经能读到新的 A",
+      "caption": "A 带着 B 标签送来 5 票，B 保留 B。",
+      "camera": "track / move focus from A to B",
+      "event": 1,
+      "duration": 4.233333333333334,
+      "actions": [
+        1.1000000000000014,
+        2.133333333333333,
+        3.1666666666666643
+      ]
+    },
+    {
+      "id": "c",
+      "visual": "visit",
+      "start": 51.96666666666667,
+      "chapter": "02 · 五节点实验",
+      "title": "C 的关键一票",
+      "caption": "A 和 B 都带着 B：1＋4＝5，胜过 D 和 E。",
+      "camera": "macro / two streams merge into one tally",
+      "event": 2,
+      "duration": 5.866666666666667,
+      "actions": [
+        1.0666666666666629,
+        2.133333333333333,
+        3.2333333333333343
+      ]
+    },
+    {
+      "id": "de",
+      "visual": "finish",
+      "start": 57.833333333333336,
+      "chapter": "02 · 五节点实验",
+      "title": "另一侧，也形成了群体",
+      "caption": "D 从 E 得到 5 票；D 变 E，E 保留 E。",
+      "camera": "pan / D updates before E reads",
+      "duration": 6.399999999999999,
+      "actions": [
+        1.0666666666666629,
+        2.133333333333333,
+        3.1999999999999957
+      ]
+    },
+    {
+      "id": "ledger",
+      "visual": "ledger",
+      "start": 64.23333333333333,
+      "chapter": "02 · 五节点实验",
+      "title": "第一轮，三次改变",
+      "caption": "A、B、C 同组；D、E 同组。节点没有改名。",
+      "camera": "pull back / stamps land on a paper ledger",
+      "duration": 4.233333333333334,
+      "actions": [
+        1.0333333333333314,
+        2.0999999999999943,
+        3.1666666666666714
+      ]
+    },
+    {
+      "id": "confirm",
+      "visual": "confirm",
+      "start": 68.46666666666667,
+      "chapter": "02 · 五节点实验",
+      "title": "稳定，要用一整轮确认",
+      "caption": "第二轮零变化。因此，这个样例报告 2 轮。",
+      "camera": "scan / five checks appear one by one",
+      "duration": 6.36666666666666,
+      "actions": [
+        1.0666666666666629,
+        2.1333333333333258,
+        3.200000000000003
+      ]
+    },
+    {
+      "id": "cut",
+      "visual": "cut",
+      "start": 74.83333333333333,
+      "chapter": "02 · 五节点实验",
+      "title": "边界上，还有两条连接",
+      "caption": "C—D 权重 2，C—E 权重 1。加权割边是 3。",
+      "camera": "separate / crossing ribbons stretch but remain",
+      "duration": 6.400000000000006,
+      "actions": [
+        1.066666666666677,
+        2.13333333333334,
+        3.200000000000003
+      ]
+    },
+    {
+      "id": "zero",
+      "visual": "zero",
+      "start": 81.23333333333333,
+      "chapter": "03 · 另一面",
+      "title": "全部同色，割边也会变成 0",
+      "caption": "数字更小，未必就是任务需要的划分。",
+      "camera": "compress / five tags collapse into one tray",
+      "duration": 4.233333333333334,
+      "actions": [
+        1.0666666666666629,
+        2.1333333333333258,
+        3.200000000000003
+      ]
+    },
+    {
+      "id": "sync",
+      "visual": "sync",
+      "start": 85.46666666666667,
+      "chapter": "03 · 另一面",
+      "title": "如果大家同时模仿对方？",
+      "caption": "A 读旧的 B；B 也读旧的 A，然后一起更新。",
+      "camera": "split / two mailboxes read then commit together",
+      "duration": 6.3999999999999915,
+      "actions": [
+        1.0666666666666629,
+        2.1666666666666714,
+        3.200000000000003
+      ]
+    },
+    {
+      "id": "cycle",
+      "visual": "cycle",
+      "start": 91.86666666666666,
+      "chapter": "03 · 另一面",
+      "title": "换回来，再换回去",
+      "caption": "A/B → B/A → A/B。这是振荡，不是收敛。",
+      "camera": "timeline / alternating snapshots remain visible",
+      "duration": 4.26666666666668,
+      "actions": [
+        1.066666666666677,
+        2.13333333333334,
+        3.200000000000003
+      ]
+    },
+    {
+      "id": "async",
+      "visual": "async",
+      "start": 96.13333333333334,
+      "chapter": "03 · 另一面",
+      "title": "让后一个点，看见刚才的变化",
+      "caption": "A 先变 B；B 随后读到 B，两点便同色。",
+      "camera": "stagger / first mailbox commits before second reads",
+      "duration": 4.23333333333332,
+      "actions": [
+        1.0666666666666629,
+        2.1333333333333258,
+        3.166666666666657
+      ]
+    },
+    {
+      "id": "many",
+      "visual": "many",
+      "start": 100.36666666666666,
+      "chapter": "04 · 回到开场",
+      "title": "再回到刚才的 24 个单元",
+      "caption": "只读邻居的标签，让同一条规则继续运行。",
+      "camera": "music lift / real multi-node trace propagates",
+      "duration": 6.933333333333337,
+      "actions": [
+        1.066666666666677,
+        2.13333333333334,
+        3.200000000000003
+      ]
+    },
+    {
+      "id": "city",
+      "visual": "comparison",
+      "start": 107.3,
+      "chapter": "04 · 回到开场",
+      "title": "从 242，到 2",
+      "caption": "这次运行得到三组、每组八个；跨组权重降到 2。",
+      "camera": "aerial / computed groups light different neighborhoods",
+      "duration": 6.366666666666674,
+      "actions": [
+        1.0666666666666629,
+        2.13333333333334,
+        3.1666666666666714
+      ]
+    },
+    {
+      "id": "bridge",
+      "visual": "bridge",
+      "start": 113.66666666666667,
+      "chapter": "04 · 条件与结果",
+      "title": "再改一条边",
+      "caption": "课程五节点图的 C—D 改为 10，实际分组随之改变。",
+      "camera": "side / bridge traffic grows, memberships recompute",
+      "duration": 6.3999999999999915,
+      "actions": [
+        1.0333333333333314,
+        2.1333333333333258,
+        3.166666666666657
+      ]
+    },
+    {
+      "id": "order",
+      "visual": "order",
+      "start": 120.06666666666666,
+      "chapter": "04 · 从局部到整体",
+      "title": "顺序，也属于实验条件",
+      "caption": "此例倒序需 3 轮；标签名不同，分组仍可相同。",
+      "camera": "paper paths / forward and reverse queues unfold",
+      "duration": 5.866666666666674,
+      "actions": [
+        1.066666666666677,
+        2.13333333333334,
+        3.13333333333334
+      ]
+    },
+    {
+      "id": "tie",
+      "visual": "tie",
+      "start": 125.93333333333334,
+      "chapter": "04 · 从局部到整体",
+      "title": "平票时，把规则写清楚",
+      "caption": "等权时可约定最小标签；实验才能准确复现。",
+      "camera": "balance / equal trays stop, B is selected",
+      "duration": 6.299999999999983,
+      "actions": [
+        1.0333333333333314,
+        2.066666666666663,
+        3.166666666666657
+      ]
+    },
+    {
+      "id": "chip",
+      "visual": "chip",
+      "start": 132.23333333333332,
+      "chapter": "05 · 走进设计",
+      "title": "找到群体，只是开始",
+      "caption": "聚类结果可以成为粗化、初始分组的线索。",
+      "camera": "match cut / city blocks become cell rectangles",
+      "duration": 7.0,
+      "actions": [
+        1.1333333333333542,
+        2.200000000000017,
+        3.26666666666668
+      ]
+    },
+    {
+      "id": "floorplan",
+      "visual": "floorplan",
+      "start": 139.23333333333332,
+      "chapter": "05 · 走进设计",
+      "title": "把紧密联系的部分，交给后续设计",
+      "caption": "分组不等于布局完成，更不等于芯片已经可用。",
+      "camera": "top-down / actual groups pack into a chip outline",
+      "duration": 6.300000000000011,
+      "actions": [
+        1.0666666666666913,
+        2.1000000000000227,
+        3.1666666666666856
+      ]
+    },
+    {
+      "id": "constraints",
+      "visual": "constraints",
+      "start": 145.53333333333333,
+      "chapter": "05 · 走进电路",
+      "title": "真实设计，还有更多约束",
+      "caption": "规模、时序、拥塞，都需要另外检查。",
+      "camera": "zoom / size gauge, timing path and congested wires",
+      "duration": 6.466666666666669,
+      "actions": [
+        1.0333333333333314,
+        2.1999999999999886,
+        3.26666666666668
+      ]
+    },
+    {
+      "id": "ribbons",
+      "visual": "stopping",
+      "start": 152.0,
+      "chapter": "05 · 检查结果",
+      "title": "停止原因，也属于结果",
+      "caption": "稳定、振荡、达到上限，需要分开报告。",
+      "camera": "tracking / three literal controls change a small graph",
+      "duration": 5.833333333333343,
+      "actions": [
+        1.0333333333333314,
+        2.0999999999999943,
+        3.1999999999999886
+      ]
+    },
+    {
+      "id": "return",
+      "visual": "return",
+      "start": 157.83333333333334,
+      "chapter": "尾声 · 回答开场",
+      "title": "现在，重新看待那两道边界",
+      "caption": "整齐只是外观。这个任务还要看连接与设计约束。",
+      "camera": "wide / opening room returns with visible connections",
+      "duration": 9.066666666666663,
+      "actions": [
+        1.0666666666666629,
+        2.1333333333333258,
+        3.1999999999999886
+      ]
+    },
+    {
+      "id": "cross",
+      "visual": "experiment",
+      "start": 166.9,
+      "chapter": "尾声 · 轮到你",
+      "title": "让一条边变弱，或者变强",
+      "caption": "在实验室里改一条边，亲手检验你的猜想。",
+      "camera": "dolly / reader carries a book between two tables",
+      "duration": 7.833333333333314,
+      "actions": [
+        1.0666666666666629,
+        2.0,
+        3.066666666666663
+      ]
+    },
+    {
+      "id": "close",
+      "visual": "close",
+      "start": 174.73333333333332,
+      "chapter": "尾声 · 重新看见",
+      "title": "局部规则，整体结构",
+      "caption": "每次只读邻居，也能让群体逐步显现。",
+      "camera": "close / same book opens to a new relationship diagram",
+      "duration": 8.5,
+      "actions": [
+        1.0666666666666913,
+        2.133333333333354,
+        3.200000000000017
+      ]
+    },
+    {
+      "id": "credits",
+      "visual": "credits",
+      "start": 183.23333333333332,
+      "chapter": "CLUSTERING LAB 05 · Su3037",
+      "title": "邻居的颜色",
+      "caption": "标签传播聚类 · 二维图形动画 · 无配音",
+      "camera": "hold / credits over final book",
+      "duration": 6.600000000000023,
+      "actions": [
+        1.0666666666666913,
+        2.133333333333354,
+        3.200000000000017
+      ]
+    }
+  ]
+}

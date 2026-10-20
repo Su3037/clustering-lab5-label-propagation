@@ -1,0 +1,648 @@
+{
+ "version": 4,
+ "title": "圈子从哪里来",
+ "titleEn": "WHERE DO CLUSTERS COME FROM?",
+ "fps": 30,
+ "duration": 379.64,
+ "music": {
+  "title": "We Never (Remix)（若如初见）",
+  "artists": "Hi Noise / 秋成",
+  "source": "https://www.bilibili.com/video/BV134Ho6qENu/",
+  "speed": 1,
+  "gain": 0.45,
+  "plays": [
+   0.0,
+   189.82
+  ],
+  "note": "User-selected exact upload at original speed, played twice back to back (part one, part two). Third-party recording, excluded from the project's MIT and CC BY licenses."
+ },
+ "arc": "cold open (contacts) -> title on the groove entry -> historical anchor (Raghavan, Albert & Kumara 2007) -> the same problem in chips -> why the split matters -> the ruler fails -> brute force is impossible -> the local rule -> part two: nine layers from labels to limits -> counterintuitive twist (synchronous updates never stop) -> real-world use in EDA -> closing and citations",
+ "scenes": [
+  {
+   "id": "contacts",
+   "start": 0.0,
+   "end": 17.41,
+   "chapter": "序 · 通讯录",
+   "beat": "intro hits: names fall out of a contact list; the silent break draws who talks to whom"
+  },
+  {
+   "id": "title",
+   "start": 17.41,
+   "end": 24.85,
+   "chapter": "",
+   "beat": "title card lands on the groove entry"
+  },
+  {
+   "id": "community",
+   "start": 24.85,
+   "end": 34.17,
+   "chapter": "序 · 通讯录",
+   "beat": "good grouping: tight inside, few links between"
+  },
+  {
+   "id": "history",
+   "start": 34.17,
+   "end": 51.18,
+   "chapter": "一 · 一个极简的办法",
+   "beat": "2007 citation, then the real run on the contacts graph; circles gather on the fill"
+  },
+  {
+   "id": "chip",
+   "start": 51.18,
+   "end": 68.2,
+   "chapter": "二 · 芯片里的同一个问题",
+   "beat": "the contacts dissolve into a die; zoom to cells and wires"
+  },
+  {
+   "id": "wires",
+   "start": 68.2,
+   "end": 85.22,
+   "chapter": "二 · 芯片里的同一个问题",
+   "beat": "short wire inside a block, long wire across blocks"
+  },
+  {
+   "id": "ruler",
+   "start": 85.22,
+   "end": 102.5,
+   "chapter": "三 · 尺子与穷举",
+   "beat": "the ruler splits 24 cells; the severed weight adds up"
+  },
+  {
+   "id": "count",
+   "start": 102.5,
+   "end": 119.27,
+   "chapter": "三 · 尺子与穷举",
+   "beat": "how many splits exist: real counts"
+  },
+  {
+   "id": "rule",
+   "start": 119.27,
+   "end": 136.16,
+   "chapter": "四 · 一条局部规则",
+   "beat": "push into one cell; neighbours' labels travel in; the strongest wire lights"
+  },
+  {
+   "id": "questions",
+   "start": 136.16,
+   "end": 170.6,
+   "chapter": "四 · 一条局部规则",
+   "beat": "the soft outro: what the one-line rule leaves open"
+  },
+  {
+   "id": "interlude",
+   "start": 170.6,
+   "end": 189.82,
+   "chapter": "",
+   "beat": "the track ends; part card for part two"
+  },
+  {
+   "id": "names",
+   "start": 189.82,
+   "end": 207.23,
+   "chapter": "第 1 层 · 标签",
+   "beat": "teacher's graph lands on the hits; name vs label register in the silent break"
+  },
+  {
+   "id": "weights",
+   "start": 207.23,
+   "end": 221.85,
+   "chapter": "第 2 层 · 怎样算最强",
+   "beat": "two light votes against one heavy vote"
+  },
+  {
+   "id": "formula",
+   "start": 221.85,
+   "end": 227.44,
+   "chapter": "第 2 层 · 怎样算最强",
+   "beat": "the rule written as one line, built during the drum roll"
+  },
+  {
+   "id": "update",
+   "start": 227.44,
+   "end": 241.0,
+   "chapter": "第 3 层 · 一次更新",
+   "beat": "C's accumulator, slowly"
+  },
+  {
+   "id": "round1",
+   "start": 241.0,
+   "end": 258.02,
+   "chapter": "第 4 层 · 一整轮",
+   "beat": "A to E in order, asynchronous"
+  },
+  {
+   "id": "round2",
+   "start": 258.02,
+   "end": 275.04,
+   "chapter": "第 5 层 · 何时停止",
+   "beat": "a full round with zero changes"
+  },
+  {
+   "id": "sync",
+   "start": 275.04,
+   "end": 292.32,
+   "chapter": "第 6 层 · 同时还是轮流",
+   "beat": "the twist: synchronous updates swap forever"
+  },
+  {
+   "id": "cut",
+   "start": 292.32,
+   "end": 309.09,
+   "chapter": "第 7 层 · 分得好不好",
+   "beat": "weighted cutsize; strengthen C-D and the boundary moves on the fill"
+  },
+  {
+   "id": "payoff",
+   "start": 309.09,
+   "end": 325.98,
+   "chapter": "第 8 层 · 回到芯片",
+   "beat": "the real run on 24 cells; groups surface on the fill"
+  },
+  {
+   "id": "limits",
+   "start": 325.98,
+   "end": 343.02,
+   "chapter": "第 9 层 · 它做不到的事",
+   "beat": "group count, balance, visiting order"
+  },
+  {
+   "id": "eda",
+   "start": 343.02,
+   "end": 351.4,
+   "chapter": "现实中的用法",
+   "beat": "cluster first, then partition and place"
+  },
+  {
+   "id": "return",
+   "start": 351.4,
+   "end": 360.42,
+   "chapter": "现实中的用法",
+   "beat": "contacts and chip side by side"
+  },
+  {
+   "id": "credits",
+   "start": 360.42,
+   "end": 379.64,
+   "chapter": "",
+   "beat": "closing line, citations and credits"
+  }
+ ],
+ "captions": [
+  [
+   0.6,
+   4.6,
+   "打开通讯录，几百个名字。",
+   "Open your contacts: hundreds of names."
+  ],
+  [
+   4.8,
+   10.5,
+   "要把他们分成几个圈子，你会怎么分？",
+   "How would you sort them into circles?"
+  ],
+  [
+   11.0,
+   14.2,
+   "你不需要知道每个人是谁，",
+   "You don't need to know who anyone is."
+  ],
+  [
+   14.4,
+   17.2,
+   "只要看：谁和谁常联系。",
+   "Just look at who keeps in touch with whom."
+  ],
+  [
+   25.0,
+   29.0,
+   "好的分组：圈内联系紧，圈与圈之间联系少。",
+   "A good grouping: tight inside, few links between."
+  ],
+  [
+   29.2,
+   34.0,
+   "网络科学把这件事叫作“社群发现”。",
+   "Network science calls this community detection."
+  ],
+  [
+   34.4,
+   38.4,
+   "2007 年，三位研究者提出一个极简的办法。",
+   "In 2007, three researchers proposed a strikingly simple method."
+  ],
+  [
+   38.6,
+   42.6,
+   "每个人看看朋友们现在属于哪个圈子，",
+   "Each person checks which circle their friends are in now,"
+  ],
+  [
+   42.8,
+   46.8,
+   "然后加入联系最多的那一个。",
+   "and joins the one they are most connected to."
+  ],
+  [
+   47.0,
+   51.0,
+   "一遍遍重复，圈子自己浮现。",
+   "Repeat, and the circles appear on their own."
+  ],
+  [
+   51.4,
+   55.4,
+   "同样的问题，藏在每一块芯片里。",
+   "The same problem hides inside every chip."
+  ],
+  [
+   55.6,
+   59.6,
+   "几百万个单元，由导线连成一张网。",
+   "Millions of cells, wired into one network."
+  ],
+  [
+   59.8,
+   63.8,
+   "设计时，EDA 软件要先把它们分成几块。",
+   "To design it, EDA software first splits them into blocks."
+  ],
+  [
+   64.0,
+   68.0,
+   "为什么要在乎怎么分？",
+   "Why does the split matter?"
+  ],
+  [
+   68.4,
+   72.4,
+   "同一块里的单元，用短导线相连。",
+   "Cells in the same block connect with short wires."
+  ],
+  [
+   72.6,
+   76.6,
+   "分在两块的单元，只能靠长导线。",
+   "Cells in different blocks need long wires."
+  ],
+  [
+   76.8,
+   80.8,
+   "导线越长，信号越慢，也越耗电。",
+   "Longer wires mean slower signals and more power."
+  ],
+  [
+   81.0,
+   85.0,
+   "所以目标和通讯录一样：块内紧，块间少。",
+   "So the goal matches your contacts: tight inside, few between."
+  ],
+  [
+   85.4,
+   89.4,
+   "看一个 24 个单元的小例子。",
+   "Take a small example: 24 cells."
+  ],
+  [
+   89.6,
+   93.6,
+   "最直接的办法：拿尺子，按位置切成三块。",
+   "The obvious approach: a ruler, three blocks by position."
+  ],
+  [
+   93.8,
+   97.6,
+   "很整齐。可它切断了多少连线？",
+   "Neat. But how much wiring does it cut?"
+  ],
+  [
+   97.8,
+   102.3,
+   "切断的权重是 {geo}，全部 {total}：将近一半。",
+   "It cuts weight {geo} out of {total}: almost half."
+  ],
+  [
+   102.7,
+   106.7,
+   "那就试遍所有分法，挑最好的？",
+   "Then why not try every split and keep the best?"
+  ],
+  [
+   106.9,
+   110.9,
+   "24 个单元平分三组，约 15.8 亿种分法。",
+   "24 cells into three equal groups: about 1.58 billion ways."
+  ],
+  [
+   111.1,
+   115.1,
+   "上百万个单元呢？分法的数字有 47 万位。",
+   "A million cells? The count itself has 477,121 digits."
+  ],
+  [
+   115.3,
+   119.1,
+   "一个个试，永远试不完。",
+   "Trying them one by one would never finish."
+  ],
+  [
+   119.5,
+   123.5,
+   "那就借用通讯录里的那条规则：",
+   "So borrow the rule from your contacts:"
+  ],
+  [
+   123.7,
+   127.7,
+   "每个单元看看邻居们现在的标签，",
+   "each cell looks at its neighbours' current labels,"
+  ],
+  [
+   127.9,
+   131.9,
+   "加入连接最强的那一组。",
+   "and joins the group it is most strongly wired to."
+  ],
+  [
+   132.1,
+   136.0,
+   "这就是标签传播。",
+   "This is label propagation."
+  ],
+  [
+   136.6,
+   141.0,
+   "规则只有一句话，细节却很要紧：",
+   "One sentence of rule, but the details matter:"
+  ],
+  [
+   141.4,
+   146.0,
+   "“最强”怎么算？谁先更新？",
+   "What counts as strongest? Who updates first?"
+  ],
+  [
+   146.4,
+   151.0,
+   "什么时候停？它一定会停吗？",
+   "When does it stop? Does it always stop?"
+  ],
+  [
+   153.6,
+   158.4,
+   "下半部分，用老师给的五节点图，一层层拆开。",
+   "In part two, we take it apart layer by layer on the teacher's five-node graph."
+  ],
+  [
+   159.0,
+   166.0,
+   "停在这里想一想：如果是你，会怎么回答？",
+   "Pause here: how would you answer them?"
+  ],
+  [
+   177.0,
+   185.0,
+   "九层，从浅到深。",
+   "Nine layers, from shallow to deep."
+  ],
+  [
+   190.4,
+   194.4,
+   "第一层：标签。",
+   "Layer one: labels."
+  ],
+  [
+   194.6,
+   200.4,
+   "开始时，每个点的标签就是自己的名字。",
+   "At the start, every node's label is its own name."
+  ],
+  [
+   200.8,
+   204.0,
+   "名字是身份，永远不变；",
+   "The name is its identity and never changes;"
+  ],
+  [
+   204.2,
+   207.1,
+   "标签是归属，会被改写。",
+   "the label is where it belongs, and it can be rewritten."
+  ],
+  [
+   207.4,
+   211.4,
+   "第二层：“最强”怎么算？",
+   "Layer two: what counts as strongest?"
+  ],
+  [
+   211.6,
+   215.8,
+   "A 的三个邻居里，B 和 C 带着标签 B，D 带着 D。",
+   "Of A's three neighbours, B and C carry label B, D carries D."
+  ],
+  [
+   216.0,
+   221.6,
+   "数人头，B 两票；加权重，B 只有 2，D 有 4。",
+   "By headcount B has two votes; by weight B has 2 and D has 4."
+  ],
+  [
+   222.1,
+   227.3,
+   "所以规则是：把同标签邻居的边权加起来，取最大。",
+   "So the rule: add up edge weights per label, take the largest."
+  ],
+  [
+   227.6,
+   232.0,
+   "第三层：一次更新。看 C。",
+   "Layer three: one update. Watch C."
+  ],
+  [
+   232.2,
+   236.4,
+   "邻居 A、B 已经是 B；D 是 D，E 是 E。",
+   "Neighbours A and B already carry B; D carries D, E carries E."
+  ],
+  [
+   236.6,
+   240.8,
+   "同标签先相加：B 是 1 + 4 = 5，D 是 2，E 是 1。",
+   "Same labels add up first: B is 1 + 4 = 5, D is 2, E is 1."
+  ],
+  [
+   241.2,
+   245.4,
+   "第四层：一整轮，按 A 到 E 依次更新。",
+   "Layer four: a full round, A to E in order."
+  ],
+  [
+   245.6,
+   249.6,
+   "B 立刻读到 A 的新标签：这叫异步更新。",
+   "B already sees A's new label: this is asynchronous updating."
+  ],
+  [
+   249.8,
+   253.6,
+   "C 改为 B，就是刚才那一步。",
+   "C becomes B, the step we just saw."
+  ],
+  [
+   253.8,
+   257.9,
+   "D 改为 E，E 保持。第一轮结束。",
+   "D becomes E, E stays. Round one ends."
+  ],
+  [
+   258.2,
+   262.2,
+   "第五层：什么时候停？再问一遍每个点。",
+   "Layer five: when to stop? Ask every node again."
+  ],
+  [
+   262.4,
+   266.4,
+   "整整一轮，没有一个点改变。",
+   "A whole round, and no node changes."
+  ],
+  [
+   266.6,
+   270.6,
+   "只有整轮零变化，才能确认稳定。",
+   "Only a full round with zero changes confirms it is stable."
+  ],
+  [
+   270.8,
+   274.9,
+   "否则后面的点一改，前面的点可能又要改。",
+   "Otherwise a later change could force an earlier node to change again."
+  ],
+  [
+   275.4,
+   279.4,
+   "第六层：如果所有点同时更新呢？",
+   "Layer six: what if every node updates at once?"
+  ],
+  [
+   279.6,
+   283.6,
+   "两个点，各自读对方的旧标签——",
+   "Two nodes, each reading the other's old label..."
+  ],
+  [
+   283.8,
+   287.8,
+   "A 变成 B，B 变成 A，再换回来：永远停不下来。",
+   "A becomes B, B becomes A, and back again: it never stops."
+  ],
+  [
+   288.0,
+   292.2,
+   "轮流更新时，B 读到 A 的新标签，两者一致。",
+   "Taking turns, B reads A's new label and they agree."
+  ],
+  [
+   292.6,
+   296.6,
+   "第七层：分得好不好？看被切开的边。",
+   "Layer seven: is the split good? Look at the cut edges."
+  ],
+  [
+   296.8,
+   300.8,
+   "C–D 权重 2，C–E 权重 1。",
+   "C–D has weight 2, C–E has weight 1."
+  ],
+  [
+   301.0,
+   305.0,
+   "cutsize 是被切开的权重之和：2 + 1 = 3。",
+   "Cutsize is the sum of cut weights: 2 + 1 = 3."
+  ],
+  [
+   305.2,
+   309.0,
+   "把 C–D 加强到 10，边界立刻移动。",
+   "Strengthen C–D to 10 and the boundary moves."
+  ],
+  [
+   309.4,
+   313.4,
+   "第八层：回到 24 个单元，每个从自己的标签出发。",
+   "Layer eight: back to the 24 cells, each starting with its own label."
+  ],
+  [
+   313.6,
+   317.6,
+   "颜色沿着最强的连线扩散。",
+   "Colour spreads along the strongest wires."
+  ],
+  [
+   317.8,
+   321.8,
+   "每一轮只读每条连线两次：工作量和连线数成正比。",
+   "Each round reads every wire twice: the work grows with the number of wires."
+  ],
+  [
+   322.0,
+   325.9,
+   "第 {rounds} 轮零变化。只切开 {lp}，尺子切开 {geo}。",
+   "Round {rounds}: no changes. It cuts {lp}; the ruler cut {geo}."
+  ],
+  [
+   326.2,
+   330.2,
+   "第九层：它做不到的事。",
+   "Layer nine: what it cannot do."
+  ],
+  [
+   330.4,
+   334.4,
+   "它不保证分成几组，也不保证每组一样大。",
+   "It promises neither the number of groups nor equal sizes."
+  ],
+  [
+   334.6,
+   338.6,
+   "换个访问顺序，标签名和轮数都可能变。",
+   "Change the visiting order and label names and round counts can change."
+  ],
+  [
+   338.8,
+   342.9,
+   "它给出的是线索，不是最终答案。",
+   "It gives a clue, not a final answer."
+  ],
+  [
+   343.2,
+   347.2,
+   "在芯片设计中，聚类常用来先把紧密的单元收成团，",
+   "In chip design, clustering often first gathers tightly wired cells,"
+  ],
+  [
+   347.4,
+   351.3,
+   "让电路图变小，再交给更精细的划分与布局。",
+   "shrinking the netlist before finer partitioning and placement."
+  ],
+  [
+   351.6,
+   356.0,
+   "通讯录里的圈子，芯片里的分块，是同一个问题。",
+   "Circles in your contacts and blocks in a chip are the same problem."
+  ],
+  [
+   356.2,
+   360.3,
+   "没有人画圈。圈子，从连接里长出来。",
+   "No one draws the circles. They grow out of the connections."
+  ],
+  [
+   361.0,
+   366.0,
+   "去实验室改一条边的权重，看看边界会怎么走。",
+   "Open the lab, change one edge weight, and watch the boundary move."
+  ]
+ ]
+}

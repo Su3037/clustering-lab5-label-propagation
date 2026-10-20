@@ -13,7 +13,7 @@ c.setTitle('Label propagation Lab05 - Su3037');c.setAuthor('Su3037')
 for p in pages:
  c.drawImage(ImageReader(str(p)),0,0,width=960,height=540);c.showPage()
 c.save()
-for src,name in [('video/transcript.md','transcript.md'),('presentation/notes.json','notes.json'),('src/label_propagation.py','label_propagation.py'),('docs/research/sources.md','sources.md'),('docs/LEARN.md','learn.md')]:
+for src,name in [('video/transcript-v2.md','transcript.md'),('presentation/notes.json','notes.json'),('src/label_propagation.py','label_propagation.py'),('docs/research/sources.md','sources.md'),('docs/LEARN.md','learn.md')]:
  if (ROOT/src).exists():shutil.copyfile(ROOT/src,dest/name)
 g=json.loads((ROOT/'data/traces.json').read_text())['graphs']['golden']
 small={'nodes':g['nodes'],'edges':g['edges']}
