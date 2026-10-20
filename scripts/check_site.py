@@ -26,15 +26,18 @@ for path in SITE.glob('*.js'):
  for link in re.findall(r"(?:from\s*|import\s*)['\"]([^'\"]+)['\"]",path.read_text()):
   if link.startswith('.') and not (path.parent/urlsplit(link).path).exists():missing.append((path.name,link))
 assert not missing,missing
-for file in ['neighbors.mp4','one-graph.mp4']:
+for file in ['circles.mp4','one-graph.mp4']:
  b=(SITE/'media'/file).read_bytes();assert b'ftyp' in b[:40] and len(b)>1000000,file
  assert 0<b.find(b'moov')<b.find(b'mdat'),file+' is not faststart'
- vtt=(SITE/'media'/file.replace('.mp4','.zh.vtt')).read_text();assert vtt.startswith('WEBVTT')
- assert '-->' in vtt
+ for vtt in [file.replace('.mp4','.zh.vtt')]+(['circles.en.vtt'] if file=='circles.mp4' else []):
+  t=(SITE/'media'/vtt).read_text();assert t.startswith('WEBVTT') and '-->' in t,vtt
 assert sum(s['duration'] for s in json.loads((ROOT/'video/storyboard.json').read_text()))==229
-plan=json.loads((ROOT/'video/storyboard-v2.json').read_text())
-assert 189<plan['duration']<191 and len(plan['scenes'])==34
-for at in re.findall(r'data-seek="([0-9.]+)"',(SITE/'index.html').read_text()):assert float(at)<plan['duration']
+plan=json.loads((ROOT/'video/storyboard-v4.json').read_text())
+assert 379<plan['duration']<380 and len(plan['scenes'])==24
+html=(SITE/'index.html').read_text()
+for at in re.findall(r'data-seek(?:-film)?="([0-9.]+)"',html):assert float(at)<plan['duration'],at
+chapters={round(c['start'],2) for c in json.loads((ROOT/'video/chapters-v4.json').read_text())}
+for at in re.findall(r'data-seek="([0-9.]+)"',html):assert round(float(at),2) in chapters|{0.0},at
 notes=json.loads((SITE/'downloads/notes.json').read_text());assert len(notes)==16
 assert len(list((SITE/'slides').glob('slide-*.png')))==16
 with zipfile.ZipFile(SITE/'downloads/label-propagation.pptx') as z:
@@ -47,4 +50,4 @@ for path in SITE.rglob('*'):
  if path.is_file() and path.suffix in ['.html','.js','.css','.json','.md']:
   s=path.read_text(encoding='utf-8');assert '/Users/' not in s,path
   if path.suffix in ['.js','.html']:assert 'localhost:8785' not in s,path
-print('PASS: HTML paths, anchors, module imports, faststart media, 16 slides and notes, downloads and public path hygiene.')
+print('PASS: HTML paths, anchors, module imports, faststart media, film v4 chapters, 16 slides and notes, downloads and public path hygiene.')

@@ -1,6 +1,31 @@
 # 视频与课件的复现
 
-## 第二版主片（当前网站默认）
+## 第四版主片《圈子从哪里来》（当前网站默认）
+
+379.64 秒，1920×1080、30 fps、H.264/AAC，中英双语字幕烧录在画面中，无配音。画面全部由 Pycairo 逐帧绘制（深色技术风格），需要 Python 3.10+、pycairo、Pillow、NumPy、FFmpeg 和 Noto Sans/Serif CJK SC 字体。
+
+```sh
+node scripts/build-film-v3.mjs                 # data/film-v3.json：24 单元电路、虚构通讯录与全部对照运行
+python3 tests/film_v3_crosscheck.py            # 用独立 Python 实现复算短片中的每个数字
+python3 scripts/render_film_v4.py --stills     # 每个场景一张关键帧，检查版面
+python3 scripts/render_film_v4.py --start 0 --end 95     # 分段渲染无声画面（可并行）
+python3 scripts/render_film_v4.py --start 95 --end 190
+python3 scripts/render_film_v4.py --start 190 --end 285
+python3 scripts/render_film_v4.py --start 285 --end 379.64
+```
+
+输出在 `build/private/film-v4/`（不入库），用 ffmpeg concat 拼接后得到无声画面。`video/storyboard-v4.json` 保存场景、章节与双语字幕；渲染器同时写出 `film-v4.zh.vtt`、`film-v4.en.vtt`、`chapters-v4.json` 和 `video/transcript-v4.md`。
+
+配乐：指定音轨原速循环两遍，裁到 379.64 秒，音量 0.45，结尾 1.5 秒淡出，AAC 192k，视频流直接复制并 faststart。例如：
+
+```sh
+ffmpeg -i picture.mp4 -stream_loop 1 -i music.m4a -map 0:v -map 1:a -c:v copy \
+  -af "atrim=0:379.64,volume=0.45,afade=t=out:st=378.14:d=1.5" -c:a aac -b:a 192k -movflags +faststart circles.mp4
+```
+
+网站与闯关使用的通讯录、电路图由 `node scripts/build-site-graphs.mjs` 导出到 `site/film-graphs.js`，`tests/site-quest.test.mjs` 检查它们与短片数据一致。剧本修改过程见 [第四版剧本说明](research/film-v4-script.md)。`scripts/render_film_v3.py` 是第三版（3 分 10 秒）的渲染器，第四版复用它的场景。
+
+## 第二版主片
 
 当前主片约3分10秒，34个二维镜头，1920×1080、30fps、H.264/AAC，无配音。没有使用写实生成图；场景、人物、物件与图形全部由代码绘制。字体需求同下方首版。
 

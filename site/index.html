@@ -1,18 +1,128 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>邻居的颜色 · Lab 05 标签传播聚类</title><meta name="description" content="用一部中文知识动画、一份课堂课件和真实可交互的标签传播实验，理解邻居如何形成群体。"><link rel="stylesheet" href="style.css?v=20261020a"><link rel="icon" href="assets/mark.svg" type="image/svg+xml"></head>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>圈子从哪里来 · Lab 05 标签传播聚类</title>
+<meta name="description" content="从通讯录里的圈子讲到芯片里的分块：一部 6 分钟双语知识短片、九层由浅入深的讲解，和一套用真实算法判分的闯关实验。">
+<link rel="stylesheet" href="style.css?v=20261020c"><link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+</head>
 <body>
 <a class="skip" href="#main">跳到正文</a>
-<header class="header"><a class="brand" href="#">LP<span>邻居的颜色</span></a><nav aria-label="主导航"><a href="#film">知识短片</a><a href="#classroom">课堂课件</a><a href="#lab">动手实验</a><a href="#practice">练习</a><a href="#sources">资料</a></nav><a class="repo-link" href="https://github.com/Su3037/clustering-lab5-label-propagation">GitHub ↗</a></header>
+<header class="header">
+ <a class="brand" href="#">LP<span>圈子从哪里来</span></a>
+ <nav aria-label="主导航"><a href="#film">短片</a><a href="#story">从通讯录到芯片</a><a href="#learn">九层讲解</a><a href="#quest">闯关</a><a href="#lab">自由实验台</a><a href="#practice">练习</a><a href="#classroom">课件</a></nav>
+ <div class="header-tools"><button id="sound-toggle" class="button quiet small-btn" type="button" aria-pressed="false">音效 关</button><a class="repo-link" href="https://github.com/Su3037/clustering-lab5-label-propagation">GitHub ↗</a></div>
+</header>
 <main id="main">
-<section class="hero wrap"><div><p class="eyebrow">CLUSTERING / LAB 05 / LABEL PROPAGATION</p><h1>邻居的颜色</h1><p class="hero-sub">一条局部规则，<br>如何长出群体的形状。</p><p class="lead">先看一段中文动画，再亲手改变图上的连接。标签传播，从看懂每一票开始。</p><div class="hero-actions"><a class="button primary" href="#film">观看 3′10″ 知识短片 <span>▶</span></a><a class="button quiet" href="#lab">直接动手实验 ↓</a></div><p class="byline">Su3037 · 课程共建作品 · 浏览器本地计算</p></div><div class="hero-art"><svg id="hero-graph" viewBox="0 0 740 530" role="img" aria-label="五个节点通过不同权重的边连接，左侧三个节点与右侧两个节点形成两个群体"></svg><p>每一条线都有分量，每一次更新都可解释。</p></div></section>
-<section id="film" class="film-section"><div class="wrap"><div class="section-head"><div><p class="eyebrow">01 / 一起看见</p><h2>先相遇，再理解</h2></div><p>二维图形动画 · 中文文字 · 指定配乐 · 无配音</p></div><div class="film-selector" role="group" aria-label="选择视频"><button data-film="main" aria-pressed="true">完整知识短片 · 3′10″</button><button data-film="short" aria-pressed="false">课堂慢速推演 · 1′27″</button></div><div class="film-layout"><div><video id="film-player" controls playsinline preload="metadata" poster="media/cover.jpg?v=20261020v2"><source src="media/neighbors.mp4?v=20261020v2" type="video/mp4"><track src="media/neighbors.zh.vtt?v=20261020v2" kind="subtitles" srclang="zh" label="中文">浏览器无法播放，请使用下方下载链接。</video><p class="film-note">第二版主片采用二维插画与按节奏编排的动作。音乐：We Never (Remix)（若如初见）—Hi Noise / 秋成，按你指定的上传版本使用；第三方音乐不属于项目 CC 许可。慢速推演保留课堂讲解节奏。</p><div class="film-links"><a href="media/neighbors.mp4?v=20261020v2" download>下载主片 MP4 ↗</a><a href="media/one-graph.mp4" download>下载推演精讲</a><a href="media/neighbors.zh.vtt" download>中文字幕</a><a href="downloads/transcript.md" download>分镜与文字稿</a><a href="https://www.bilibili.com/video/BV134Ho6qENu/" target="_blank" rel="noopener noreferrer">指定配乐来源 ↗</a></div></div><aside class="chapters"><h3>把疑问留在这里</h3><button data-seek="0.000"><span>00:00</span> 一本书，如何连接起人？</button><button data-seek="25.967"><span>00:25</span> 权重比人数更重要吗？</button><button data-seek="39.233"><span>00:39</span> 老师的小图，一步步算</button><button data-seek="68.467"><span>01:08</span> 为什么是 2 轮、cutsize 3？</button><button data-seek="85.467"><span>01:25</span> 同时跟随，为什么会来回变？</button><button data-seek="132.233"><span>02:12</span> 从街区走进电路</button><p>短片负责建立直觉。下面的实验负责检验直觉。</p></aside></div></div></section>
-<section id="classroom" class="wrap section"><div class="section-head"><div><p class="eyebrow">02 / 带回课堂</p><h2>可以讲，也可以继续改</h2></div><p>16 页可编辑课件，附演讲备注与来源。</p></div><div class="deck-layout"><a class="deck-image" href="slides.html"><img src="slides/slide-08.png" alt="课件预览：稳定确认与加权割边" loading="lazy"><span>打开全屏课件预览 ↗</span></a><div class="deck-copy"><h3>一个例子，贯穿整场讲解</h3><p>从加权投票讲到确认轮，再用双节点振荡说明同步与异步。最后回到 EDA 的用途和局限。</p><div class="download-stack"><a class="button primary" href="downloads/label-propagation.pptx" download>下载可编辑 PowerPoint ↓</a><a class="button" href="downloads/label-propagation.pdf" target="_blank" rel="noopener">打开 PDF 预览 ↗</a><a href="slides.html">浏览网页课件与讲解备注</a></div><p class="small">建议：先播放短片，再选第 4–11 页讲例子，最后让同学动手。课堂时间可自行调整。</p></div></div></section>
-<section id="learn" class="wrap section learning"><div><p class="eyebrow">03 / 把规则说清楚</p><h2>一轮，就是每个节点<br>都访问一次。</h2><p class="lead">先记住：节点名字不变，变化的是它携带的标签。</p></div><ol class="rule-list"><li><strong>每个节点，以自己的名字为初始标签。</strong><p>A 带 A，B 带 B。孤立节点没有邻居，保留原标签。</p></li><li><strong>按标签，把邻居的边权相加。</strong><p>同标签的两条边 1 和 4，需要合成 5 票。</p></li><li><strong>选择最大票数的标签。</strong><p>课堂默认平票取字典序最小。异步模式立即写回，同步模式整轮后统一写回。</p></li><li><strong>再看一整轮，是否真的没有变化。</strong><p>零变化才确认稳定。重复状态报告振荡，达到上限报告未确认收敛。</p></li></ol></section>
-<section id="lab" class="lab-section"><div class="wrap"><div class="section-head"><div><p class="eyebrow">04 / 轮到你了</p><h2>标签接力实验室</h2></div><p>每个动画状态来自实际计算，不是固定答案。</p></div><div class="mission-strip" aria-label="实践目标"><span id="mission-vote">○ 看懂 C 的 5 票</span><span id="mission-golden">○ 复现教师样例</span><span id="mission-cycle">○ 找到同步振荡</span></div><div class="lab-toolbar"><label>实验图<select id="preset"><option value="golden">教师五节点图</option><option value="pair">两节点振荡</option><option value="tie">一票还是两票？</option><option value="island">孤点与断开群体</option></select></label><label>更新方式<select id="mode"><option value="async">异步 · 立即写回</option><option value="sync">同步 · 轮末写回</option></select></label><label>平票规则<select id="tie"><option value="min">最小标签（课堂默认）</option><option value="max">最大标签</option><option value="keep">当前标签优先，再取最小</option></select></label><label>访问顺序<input id="order" value="A B C D E" autocomplete="off" spellcheck="false" aria-describedby="order-help"></label><button id="apply" class="button">应用并重置</button></div><p id="order-help" class="small">节点恰好各出现一次，用空格或逗号分隔。修改配置后需应用，当前运行的规则见下方。</p><div class="experiment"><div class="graph-stage"><div class="graph-top"><span id="active-config"></span><label class="motion-label"><input type="checkbox" id="motion" checked>动态效果</label></div><svg id="lab-graph" viewBox="0 0 740 530" role="group" aria-label="当前标签传播实验图"></svg><p id="graph-caption" class="small">圆中是节点名，圆下是当前标签。点选节点可以查看它此刻读到的票数。</p><div id="legend" class="legend"></div></div><aside class="inspector"><div class="metrics"><div><span>已完成轮数</span><strong id="rounds">0</strong></div><div><span>当前群体数</span><strong id="clusters">5</strong></div><div><span>加权 cutsize</span><strong id="cut">18</strong></div></div><p id="status" class="status" role="status" aria-live="polite">等待第一次更新</p><h3 id="vote-title">下一位：A</h3><div id="votes" class="votes"></div><p id="decision" class="decision"></p><div class="lab-actions"><button id="step" class="button primary">更新一个节点</button><button id="round" class="button">完成这一轮</button><button id="play" class="button">自动播放</button><button id="reset" class="button quiet">重新开始</button></div><p class="small">同步模式逐个计算待写回标签，到本轮最后一个节点才统一提交。</p></aside></div><div class="below-lab"><div class="bridge-control"><label for="bridge">改变桥边 C—D 的权重 <output id="bridge-value">2</output></label><input type="range" id="bridge" min="0" max="10" step="1" value="2"><p class="small">仅用于教师图。0 表示删除该边。修改即重置实验，数值 2 是原始样例。</p></div><div class="lab-exports"><button id="compare" class="button">比较更新方式与顺序</button><button id="export" class="button">导出本次逐步记录 JSON ↓</button></div></div><div id="comparison" hidden></div><details class="trace-details"><summary>查看真实的逐节点记录</summary><div class="table-scroll"><table><thead><tr><th>轮</th><th>节点</th><th>旧标签</th><th>投票结果</th><th>新标签</th><th>写回时刻</th></tr></thead><tbody id="trace"></tbody></table></div></details><details class="custom"><summary>试一张自己的图</summary><p class="small">最多 30 个节点、200 条无向边，权重为正。不支持自环或重边。只在此浏览器中计算。</p><label for="graph-json">图数据 JSON</label><textarea id="graph-json" rows="7" spellcheck="false"></textarea><button id="load-json" class="button">加载自定义图</button></details></div></section>
-<section id="practice" class="wrap section"><div class="section-head"><div><p class="eyebrow">05 / 验证理解</p><h2>知道答案，也知道理由</h2></div><p>可以反复尝试。答案后面，保留推理过程。</p></div><div id="questions" class="questions"></div><div class="coding"><div><h3>想自己实现一次？</h3><p>独立 Python 参考实现与浏览器引擎交叉验证。包含异步、同步、平票、孤点、振荡检测和割边统计。</p></div><div><a class="button" href="downloads/label_propagation.py" download>下载 Python 实现 ↓</a><a class="button quiet" href="downloads/golden.json" download>下载指定小图</a><pre><code>python3 label_propagation.py golden.json
+
+<section class="hero wrap">
+ <div>
+  <p class="eyebrow">CLUSTERING / LAB 05 / LABEL PROPAGATION</p>
+  <h1>圈子从哪里来</h1>
+  <p class="hero-sub">通讯录里的圈子，芯片里的分块，<br>是同一个问题。</p>
+  <p class="lead">先看一部 6 分钟的双语短片，再沿着九层讲解把规则拆开，最后亲手闯关：每一关的答案都由真实算法现场计算。</p>
+  <div class="hero-actions"><a class="button primary" href="#film">观看 6′20″ 知识短片 <span>▶</span></a><a class="button quiet" href="#quest">开始闯关 ↓</a></div>
+  <p class="byline">Su3037 · 课程共建作品 · 浏览器本地计算</p>
+ </div>
+ <div class="hero-art"><svg id="hero-graph" viewBox="0 0 740 530" role="img" aria-label="虚构通讯录的 28 个人，按标签传播的结果分成三个颜色的圈子"></svg><p>28 个虚构联系人。三种颜色由标签传播算出，没有人画圈。</p></div>
+</section>
+
+<section id="film" class="film-section"><div class="wrap">
+ <div class="section-head"><div><p class="eyebrow">01 / 先看短片</p><h2>圈子从哪里来</h2></div><p>二维动画 · 中英双语字幕 · 指定配乐 · 无配音</p></div>
+ <div class="film-selector" role="group" aria-label="选择视频"><button data-film="main" aria-pressed="true">完整知识短片 · 6′20″</button><button data-film="short" aria-pressed="false">课堂慢速推演 · 1′27″</button></div>
+ <div class="film-layout">
+  <div>
+   <video id="film-player" controls playsinline preload="metadata" poster="media/circles-cover.jpg?v=20261020c"><source src="media/circles.mp4?v=20261020c" type="video/mp4"><track src="media/circles.zh.vtt?v=20261020c" kind="subtitles" srclang="zh" label="中文"><track src="media/circles.en.vtt?v=20261020c" kind="subtitles" srclang="en" label="English">浏览器无法播放，请使用下方下载链接。</video>
+   <p class="film-note">画面里已经烧录中英双语字幕。音乐：We Never (Remix)（若如初见）—Hi Noise / 秋成，按指定的上传版本原速播放两遍；第三方音乐不属于项目的 MIT 或 CC BY 许可。所有标签、票数、轮数与 cutsize 都由项目算法实际运行得出；通讯录与 24 单元电路是虚构的教学图。</p>
+   <div class="film-links"><a href="media/circles.mp4?v=20261020c" download>下载短片 MP4 ↓</a><a href="media/one-graph.mp4" download>下载慢速推演</a><a href="media/circles.zh.vtt" download>中文字幕</a><a href="media/circles.en.vtt" download>English subtitles</a><a href="downloads/transcript.md" download>分镜与双语文字稿</a><a href="https://www.bilibili.com/video/BV134Ho6qENu/" target="_blank" rel="noopener noreferrer">指定配乐来源 ↗</a></div>
+  </div>
+  <aside class="chapters"><h3>章节</h3>
+   <button data-seek="0"><span>00:00</span> 序 · 通讯录</button>
+   <button data-seek="34.17"><span>00:34</span> 一个极简的办法</button>
+   <button data-seek="51.18"><span>00:51</span> 芯片里的同一个问题</button>
+   <button data-seek="85.22"><span>01:25</span> 尺子与穷举</button>
+   <button data-seek="119.27"><span>01:59</span> 一条局部规则</button>
+   <button data-seek="189.82"><span>03:09</span> 下篇 · 九层拆解</button>
+   <button data-seek="343.02"><span>05:43</span> 现实中的用法</button>
+   <p>上篇讲为什么需要它，下篇九层讲它怎么工作。九层与下面的讲解、闯关一一对应。</p>
+  </aside>
+ </div>
+</div></section>
+
+<section id="story" class="wrap section">
+ <div class="section-head"><div><p class="eyebrow">02 / 从通讯录到芯片</p><h2>同一个问题，两个世界</h2></div><p>上篇的四步，数字都来自真实计算。</p></div>
+ <ol class="story-steps">
+  <li><span class="step-no">1</span><h3>通讯录</h3><p>几百个名字，要分成几个圈子。你不需要知道每个人是谁，只要看谁和谁常联系。好的分组：圈内联系紧，圈与圈之间联系少。网络科学把这叫作<strong>社群发现</strong>。</p><button class="text-link" data-seek-film="0">短片 00:00 ▶</button></li>
+  <li><span class="step-no">2</span><h3>芯片</h3><p>芯片里有几百万个单元，由导线连成一张网。EDA 软件要先把它们分成几块：同一块里用短导线，跨块只能用长导线，而导线越长，信号越慢、越耗电。目标和通讯录一样：<strong>块内紧，块间少</strong>。</p><button class="text-link" data-seek-film="51.18">短片 00:51 ▶</button></li>
+  <li><span class="step-no">3</span><h3>尺子与穷举都不行</h3><p>按位置拿尺子切三块，24 个单元切断了 <strong>88</strong>（全部 202）。试遍所有分法？24 个单元平分三组已有 <strong>1,577,585,295</strong> 种；一百万个单元的分法数字本身有 <strong>477,121</strong> 位。</p><button class="text-link" data-seek-film="85.22">短片 01:25 ▶</button></li>
+  <li><span class="step-no">4</span><h3>一条局部规则</h3><p>2007 年，Raghavan、Albert 和 Kumara 提出：每个点看看邻居们现在的标签，加入连接最强的那一组，一遍遍重复。24 个单元上，它 5 轮就停下，只切开 <strong>2</strong>。</p><button class="text-link" data-seek-film="119.27">短片 01:59 ▶</button></li>
+ </ol>
+</section>
+
+<section id="learn" class="wrap section learning-layers">
+ <div class="section-head"><div><p class="eyebrow">03 / 九层讲解</p><h2>一句话的规则，<br>九层的细节。</h2></div><p>由浅入深，每层对应短片下篇的一段和一个关卡。</p></div>
+ <ol class="layers">
+  <li><details open><summary><span class="layer-no">01</span><strong>标签</strong><em>名字是身份，标签是归属</em></summary><div class="layer-body"><p>开始时，每个点的标签就是自己的名字：A 带 A，B 带 B。名字永远不变；标签会被改写。最后，标签相同的点组成一个群体。</p><p class="layer-deep">孤立点没有邻居，永远保留自己的标签，所以它总是独自成组。</p><div class="layer-links"><button class="text-link" data-seek-film="189.82">短片 03:09 ▶</button><a class="text-link" href="#quest" data-level="l1">闯第 1 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">02</span><strong>怎样算“最强”</strong><em>按标签加权，不数人头</em></summary><div class="layer-body"><p>把邻居按标签分组，同标签的边权相加，取总分最大的标签。A 的邻居里，B、C 带标签 B（各 1），D 带 D（4）：数人头 B 赢，加权重 D 赢。</p><p class="formula">新标签(v) = argmax<sub>L</sub> Σ<sub>u ∈ N(v), 标签(u)=L</sub> w(u, v)</p><p class="layer-deep">平票时，课堂规则取字典序最小的标签。换成“取最大”或“保留当前”，结果可能不同，所以平票规则也是算法的一部分。</p><div class="layer-links"><button class="text-link" data-seek-film="207.23">短片 03:27 ▶</button><a class="text-link" href="#quest" data-level="l2">闯第 2 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">03</span><strong>一次更新</strong><em>只看邻居此刻的标签</em></summary><div class="layer-body"><p>轮到 C 时，A、B 已经是 B，D 是 D，E 是 E。同标签先相加：B = 1 + 4 = 5，D = 2，E = 1。C 改写为 B，名字仍是 C。</p><p class="layer-deep">一次更新只读这个点的边，工作量和它的度数成正比。没有任何点需要看到全局。</p><div class="layer-links"><button class="text-link" data-seek-film="227.44">短片 03:47 ▶</button><a class="text-link" href="#quest" data-level="l3">闯第 3 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">04</span><strong>一整轮</strong><em>每个点按顺序访问一次</em></summary><div class="layer-body"><p>按 A→E 依次更新：A 跟随最强的邻居 B；B 立刻读到 A 的新标签，保持 B；C 改为 B；D 改为 E；E 保持。第一轮改变 3 次。</p><p class="layer-deep">“立刻读到新标签”叫异步更新，是课堂默认。访问顺序是参数，不同顺序可能得到不同标签名甚至不同分组。</p><div class="layer-links"><button class="text-link" data-seek-film="241">短片 04:01 ▶</button><a class="text-link" href="#quest" data-level="l4">闯第 4 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">05</span><strong>何时停止</strong><em>整轮零变化才算稳定</em></summary><div class="layer-body"><p>第二轮再问一遍每个点，没有一个点改变，才确认稳定：老师的图共 2 轮。只看“这一步没变”不够，后面的点一改，前面的点可能又要改。</p><p class="layer-deep">实现里还要防两种情况：状态重复出现（振荡），以及达到轮数上限仍未确认收敛。这两种都不能报告成“稳定”。</p><div class="layer-links"><button class="text-link" data-seek-film="258.02">短片 04:18 ▶</button><a class="text-link" href="#quest" data-level="l5">闯第 5 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">06</span><strong>同时还是轮流</strong><em>同步更新可能永远停不下来</em></summary><div class="layer-body"><p>如果所有点同时读上一轮的旧标签（同步更新），两个相连的点会互换标签：A 变 B，B 变 A，再换回来，永远停不下来。轮流更新时，B 读到 A 的新标签，两者立刻一致。</p><p class="layer-deep">这就是为什么课堂实现默认异步，并且要检测重复状态。</p><div class="layer-links"><button class="text-link" data-seek-film="275.04">短片 04:35 ▶</button><a class="text-link" href="#quest" data-level="l6">闯第 6 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">07</span><strong>分得好不好</strong><em>cutsize 是被切开的权重之和</em></summary><div class="layer-body"><p>老师的图最终分成 {A, B, C} 和 {D, E}。被切开的边是 C–D（2）和 C–E（1），cutsize = 2 + 1 = 3。加的是权重，不是条数。</p><p class="layer-deep">把 C–D 加强到 10，边界立刻移动：C 被拉到 D、E 那一组，cutsize 变成 5。连接的强弱，直接决定边界在哪里。</p><div class="layer-links"><button class="text-link" data-seek-film="292.32">短片 04:52 ▶</button><a class="text-link" href="#quest" data-level="l7">闯第 7 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">08</span><strong>回到芯片</strong><em>颜色沿最强的连线扩散</em></summary><div class="layer-body"><p>回到 24 个单元，每个从自己的标签出发。颜色沿最强的连线扩散，第 5 轮零变化：三组各 8 个，只切开 2，尺子切开 88。</p><p class="layer-deep">每一轮只读每条连线两次（两端各一次），工作量和连线数成正比。这就是论文标题里“近线性时间”的来源。</p><div class="layer-links"><button class="text-link" data-seek-film="309.09">短片 05:09 ▶</button><a class="text-link" href="#quest" data-level="l8">闯第 8 关 →</a></div></div></details></li>
+  <li><details><summary><span class="layer-no">09</span><strong>它做不到的事</strong><em>线索，不是最终答案</em></summary><div class="layer-body"><p>它不保证分成几组，也不保证每组一样大：这里恰好 3 组各 8 个，老师的图是 2 组、3 + 2 个。换个访问顺序，标签名和轮数都可能变。</p><p class="layer-deep">在芯片设计中，聚类常用来先把紧密的单元收成团，让电路图变小（粗化），再交给更精细的划分、布局与布线，那里还要处理面积、均衡和时序约束。</p><div class="layer-links"><button class="text-link" data-seek-film="325.98">短片 05:25 ▶</button><a class="text-link" href="#quest" data-level="l9">闯第 9 关 →</a></div></div></details></li>
+ </ol>
+</section>
+
+<section id="quest" class="quest-section"><div class="wrap">
+ <div class="section-head"><div><p class="eyebrow">04 / 闯关实验</p><h2>标签传播大冒险</h2></div><p>九关对应九层讲解，外加两场 Boss。答错不扣分，答案都由算法现场计算。</p></div>
+ <div class="q-hud" aria-label="闯关进度">
+  <div class="q-guide" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M10 14h30l14 18-14 18H10z" fill="#0f6b5c"/><circle cx="46" cy="32" r="3.5" fill="#f3efe6"/><circle cx="22" cy="28" r="3.2" fill="#fffdf8"/><circle cx="32" cy="28" r="3.2" fill="#fffdf8"/><path d="M21 37q6 5 12 0" stroke="#fffdf8" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></div>
+  <div><strong id="q-rank">新晋观察者</strong><p>向导“签签”是一张会说话的标签。</p></div>
+  <div class="q-progress"><span>冒险进度 <b id="q-count">0 / 11</b></span><div class="q-track"><i id="q-bar"></i></div></div>
+  <div class="q-stat"><b id="q-xp">0</b><span>/ <span id="q-xp-total">1300</span> XP</span></div>
+  <div class="q-stat"><b id="q-badges">0</b><span>/ 4 徽章</span></div>
+  <button id="q-start" class="button primary" type="button">继续冒险 →</button>
+ </div>
+ <ul id="q-badge-list" class="q-badge-list" aria-label="徽章"></ul>
+ <div id="q-map" class="q-map"></div>
+ <article id="q-level" class="q-level" hidden aria-live="polite">
+  <div class="q-level-head"><div><p class="eyebrow">LEARN · TRY · CHECK</p><h3 id="q-title"></h3></div><span id="q-xp-tag" class="q-xp-tag"></span></div>
+  <div class="q-level-grid">
+   <div class="q-left">
+    <div class="q-speech"><span class="q-who">签签</span><p id="q-story"></p></div>
+    <p class="q-task-label">任务</p><p id="q-task" class="q-task"></p>
+    <details id="q-hint1" class="q-hint"><summary>提示 1 · 给个方向</summary><p></p></details>
+    <details id="q-hint2" class="q-hint"><summary>提示 2 · 再具体一点</summary><p></p></details>
+    <button id="q-film" class="text-link" type="button">在短片里看这一层 ▶</button>
+   </div>
+   <div class="q-stage">
+    <svg id="q-svg" viewBox="0 0 740 530" role="group" aria-label="关卡图"></svg>
+    <p id="q-note" class="small"></p>
+    <div id="q-controls" class="q-controls"></div>
+    <div class="q-actions"><button id="q-check" class="button primary" type="button">提交答案 ✓</button><button id="q-reset" class="button quiet" type="button">重来这一关</button><button id="q-prev" class="button quiet" type="button">← 上一关</button><button id="q-next" class="button quiet" type="button">下一关 →</button></div>
+    <p id="q-feedback" class="q-feedback" role="status"></p>
+   </div>
+  </div>
+ </article>
+ <div class="q-save"><span>进度只保存在这个浏览器。</span><button id="q-export" class="text-link" type="button">导出进度 ↓</button><label class="text-link">导入进度<input id="q-import" type="file" accept="application/json" hidden></label><button id="q-clear" class="text-link" type="button">清除进度</button></div>
+</div></section>
+
+<section id="lab" class="lab-section"><div class="wrap"><div class="section-head"><div><p class="eyebrow">05 / 自由实验台</p><h2>标签接力实验室</h2></div><p>不判分，随便改。每个动画状态都来自实际计算。</p></div><div class="mission-strip" aria-label="实践目标"><span id="mission-vote">○ 看懂 C 的 5 票</span><span id="mission-golden">○ 复现教师样例</span><span id="mission-cycle">○ 找到同步振荡</span></div><div class="lab-toolbar"><label>实验图<select id="preset"><option value="golden">教师五节点图</option><option value="contacts">虚构通讯录（28 人）</option><option value="chip">虚构 24 单元电路</option><option value="pair">两节点振荡</option><option value="tie">一票还是两票？</option><option value="island">孤点与断开群体</option></select></label><label>更新方式<select id="mode"><option value="async">异步 · 立即写回</option><option value="sync">同步 · 轮末写回</option></select></label><label>平票规则<select id="tie"><option value="min">最小标签（课堂默认）</option><option value="max">最大标签</option><option value="keep">当前标签优先，再取最小</option></select></label><label>访问顺序<input id="order" value="A B C D E" autocomplete="off" spellcheck="false" aria-describedby="order-help"></label><button id="apply" class="button">应用并重置</button></div><p id="order-help" class="small">节点恰好各出现一次，用空格或逗号分隔。修改配置后需应用，当前运行的规则见下方。</p><div class="experiment"><div class="graph-stage"><div class="graph-top"><span id="active-config"></span><label class="motion-label"><input type="checkbox" id="motion" checked>动态效果</label></div><svg id="lab-graph" viewBox="0 0 740 530" role="group" aria-label="当前标签传播实验图"></svg><p id="graph-caption" class="small">圆中是节点名，圆下是当前标签。点选节点可以查看它此刻读到的票数。</p><div id="legend" class="legend"></div></div><aside class="inspector"><div class="metrics"><div><span>已完成轮数</span><strong id="rounds">0</strong></div><div><span>当前群体数</span><strong id="clusters">5</strong></div><div><span>加权 cutsize</span><strong id="cut">18</strong></div></div><p id="status" class="status" role="status" aria-live="polite">等待第一次更新</p><h3 id="vote-title">下一位：A</h3><div id="votes" class="votes"></div><p id="decision" class="decision"></p><div class="lab-actions"><button id="step" class="button primary">更新一个节点</button><button id="round" class="button">完成这一轮</button><button id="play" class="button">自动播放</button><button id="reset" class="button quiet">重新开始</button></div><p class="small">同步模式逐个计算待写回标签，到本轮最后一个节点才统一提交。</p></aside></div><div class="below-lab"><div class="bridge-control"><label for="bridge">改变桥边 C—D 的权重 <output id="bridge-value">2</output></label><input type="range" id="bridge" min="0" max="10" step="1" value="2"><p class="small">仅用于教师图。0 表示删除该边。修改即重置实验，数值 2 是原始样例。</p></div><div class="lab-exports"><button id="compare" class="button">比较更新方式与顺序</button><button id="export" class="button">导出本次逐步记录 JSON ↓</button></div></div><div id="comparison" hidden></div><details class="trace-details"><summary>查看真实的逐节点记录</summary><div class="table-scroll"><table><thead><tr><th>轮</th><th>节点</th><th>旧标签</th><th>投票结果</th><th>新标签</th><th>写回时刻</th></tr></thead><tbody id="trace"></tbody></table></div></details><details class="custom"><summary>试一张自己的图</summary><p class="small">最多 30 个节点、200 条无向边，权重为正。不支持自环或重边。只在此浏览器中计算。</p><label for="graph-json">图数据 JSON</label><textarea id="graph-json" rows="7" spellcheck="false"></textarea><button id="load-json" class="button">加载自定义图</button></details></div></section>
+
+<section id="practice" class="wrap section"><div class="section-head"><div><p class="eyebrow">06 / 验证理解</p><h2>知道答案，也知道理由</h2></div><p>可以反复尝试。答案后面，保留推理过程。</p></div><div id="questions" class="questions"></div><div class="coding"><div><h3>想自己实现一次？</h3><p>独立 Python 参考实现与浏览器引擎交叉验证。包含异步、同步、平票、孤点、振荡检测和割边统计。</p></div><div><a class="button" href="downloads/label_propagation.py" download>下载 Python 实现 ↓</a><a class="button quiet" href="downloads/golden.json" download>下载指定小图</a><pre><code>python3 label_propagation.py golden.json
 python3 label_propagation.py golden.json --mode sync</code></pre></div></div></section>
-<section class="wrap section conclusion"><p class="eyebrow">06 / 回到问题本身</p><h2>标签依赖连接，<br>连接也需要解释。</h2><p>标签传播可以提供粗化或初始群体的线索。实际电路划分还需要处理规模、时序与物理约束。生活中的类比只解释图结构，不能据此判断个人本质或推出因果。</p><p>本次改进保留老师的五节点图，补上中文动画、逐节点票数、同步振荡反例、可改参数的实验和带解析的习题。</p></section>
-<section id="sources" class="wrap section sources"><div><p class="eyebrow">资料与复现</p><h2>沿着来源，继续学习</h2></div><ul><li><a href="https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation">教师 Lab05：README、示例与检查表 ↗</a></li><li><a href="https://arxiv.org/abs/0709.2938">Raghavan、Albert、Kumara（2007）原论文 ↗</a></li><li><a href="downloads/learn.md" download>下载中文学习讲义</a> · <a href="downloads/exercises.md" download>习题解析</a></li><li><a href="downloads/sources.md" download>视频风格研究、音乐调查与来源说明</a></li><li><a href="https://github.com/Su3037/clustering-lab5-label-propagation">项目完整仓库（私有，需授权）↗</a></li></ul></section>
-</main><footer class="wrap footer"><span>Lab 05 · Su3037 · 原创教学共建</span><span><a href="downloads/LICENSE.txt">代码 MIT</a> · <a href="downloads/LICENSE-CONTENT.md">原创内容 CC BY 4.0</a></span><a href="#">回到顶部 ↑</a></footer><div id="toast" class="toast" role="status" hidden></div><script type="module" src="app.js?v=20261020b"></script>
+
+<section id="classroom" class="wrap section"><div class="section-head"><div><p class="eyebrow">07 / 带回课堂</p><h2>可以讲，也可以继续改</h2></div><p>16 页可编辑课件，附演讲备注与来源。</p></div><div class="deck-layout"><a class="deck-image" href="slides.html"><img src="slides/slide-08.png" alt="课件预览：稳定确认与加权割边" loading="lazy"><span>打开全屏课件预览 ↗</span></a><div class="deck-copy"><h3>一个例子，贯穿整场讲解</h3><p>从加权投票讲到确认轮，再用双节点振荡说明同步与异步。最后回到 EDA 的用途和局限。</p><div class="download-stack"><a class="button primary" href="downloads/label-propagation.pptx" download>下载可编辑 PowerPoint ↓</a><a class="button" href="downloads/label-propagation.pdf" target="_blank" rel="noopener">打开 PDF 预览 ↗</a><a href="slides.html">浏览网页课件与讲解备注</a></div><p class="small">建议：先播放短片，再用九层讲解和闯关带同学动手，课件第 4–11 页可以配合第 1–7 层。</p></div></div></section>
+
+<section class="wrap section conclusion"><p class="eyebrow">08 / 回到问题本身</p><h2>没有人画圈。<br>圈子，从连接里长出来。</h2><p>标签传播只用一条局部规则，就能让群体从连接里浮现。它快，也简单；但它不保证组数和大小，结果还受访问顺序影响。在芯片设计中，它是粗化与初始划分的线索，后面还有面积、时序与布线约束。生活中的类比只解释图结构，不能据此判断个人本质或推出因果。</p><p>去实验台改一条边的权重，看看边界会怎么走。</p></section>
+
+<section id="sources" class="wrap section sources"><div><p class="eyebrow">资料与复现</p><h2>沿着来源，继续学习</h2></div><ul><li><a href="https://github.com/yongfu-li/eda-learning/tree/main/courses/learn_clustering/module02-01-label-propagation">教师 Lab05：README、示例与检查表 ↗</a></li><li><a href="https://arxiv.org/abs/0709.2938">Raghavan、Albert、Kumara（2007）原论文 ↗</a></li><li><a href="downloads/learn.md" download>下载中文学习讲义（九层）</a> · <a href="downloads/exercises.md" download>习题解析</a></li><li><a href="downloads/sources.md" download>视频风格研究、音乐调查与来源说明</a></li><li><a href="https://github.com/Su3037/clustering-lab5-label-propagation">项目完整仓库（私有，需授权）↗</a></li></ul></section>
+</main>
+<footer class="wrap footer"><span>Lab 05 · Su3037 · 原创教学共建</span><span><a href="downloads/LICENSE.txt">代码 MIT</a> · <a href="downloads/LICENSE-CONTENT.md">原创内容 CC BY 4.0</a></span><a href="#">回到顶部 ↑</a></footer>
+<div id="toast" class="toast" role="status" hidden></div>
+<div id="q-celebrate" class="q-celebrate" hidden><div id="q-confetti" class="q-confetti" aria-hidden="true"></div><div class="q-cele-card" role="status"><p id="q-cele-title">通关！</p><strong id="q-cele-xp">+100 XP</strong><span id="q-cele-badge"></span><small>点按任意处继续</small></div></div>
+<script type="module" src="sound.js?v=20261020c"></script>
+<script type="module" src="app.js?v=20261020c"></script>
+<script type="module" src="quest.js?v=20261020c"></script>
 </body></html>
