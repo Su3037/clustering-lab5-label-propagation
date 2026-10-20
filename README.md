@@ -17,7 +17,7 @@ Clustering Lab05 标签传播聚类的中文教学共建项目。作者 Su3037�
 | 九层讲义：从通讯录到芯片 | [讲义](docs/LEARN.md) |
 | 分镜、双语字幕与文字稿 | [分镜](video/storyboard-v4.json) · [文字稿](video/transcript-v4.md) · [中文 VTT](site/media/circles.zh.vtt) · [English VTT](site/media/circles.en.vtt) |
 | 剧本修改记录 | [第四版剧本说明](docs/research/film-v4-script.md) |
-| 16 页可编辑课件，带讲解备注 | [PPTX](site/downloads/label-propagation.pptx) · [PDF](site/downloads/label-propagation.pdf) |
+| 18 页可编辑课件，和短片同一条故事线，带讲解备注 | [PPTX](site/downloads/label-propagation.pptx) · [PDF](site/downloads/label-propagation.pdf) |
 | 练习与解析 | [习题](docs/EXERCISES.md) |
 | Python 独立实现 | [源码](src/label_propagation.py) |
 | 研究与音乐来源 | [来源](docs/research/sources.md) |
@@ -61,7 +61,7 @@ Node.js 20+ 和 Python 3.10+：
 npm test                          # 引擎、短片数据与闯关答案
 python3 tests/crosscheck.py       # 271 组固定种子，JS 与独立 Python 实现逐节点比对
 python3 tests/film_v3_crosscheck.py  # 短片用到的每个数字，用 Python 独立复算
-python3 scripts/check_site.py     # 网页路径、媒体、章节与下载文件
+python3 scripts/check_site.py     # 网页路径、媒体、章节、课件、下载文件，以及没有旧版本内容
 python3 tests/test_preview.py     # 视频的字节范围请求（章节跳转需要）
 ```
 
@@ -79,6 +79,13 @@ python3 scripts/render_film_v4.py --start 0 --end 95  # 分段渲染无声画面
 ```
 
 `scripts/render_film_v4.py` 复用 `scripts/render_film_v3.py` 的场景并按新的节奏重新映射时间，字幕与章节由 `video/storyboard-v4.json` 生成。配乐不在仓库中；混音时把指定音轨原速循环两遍、音量 0.45、结尾 1.5 秒淡出。详见 [复现指南](docs/REPRODUCE.md)。
+
+课件、PDF 与网页预览由同一个脚本生成，数字读自短片数据：
+
+```sh
+python3 scripts/build_deck.py         # PPTX、PDF、site/slides 预览图与讲解备注
+python3 scripts/package_materials.py  # 讲义、文字稿、练习等复制到网站下载区
+```
 
 ## 教学改进
 

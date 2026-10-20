@@ -1,17 +1,15 @@
 # 当前状态
 
-媒体、16页课件与教学网站已完成并发布。本地浏览器功能验证、自动测试和线上资源HTTP检查均已通过。
+第四版短片《圈子从哪里来》、九层讲解、闯关实验、18 页课件与讲义已完成，并发布在 https://su3037.github.io/clustering-lab5-label-propagation/ 。
 
-仓库 Su3037/clustering-lab5-label-propagation 保持private，公开网站为 https://su3037.github.io/clustering-lab5-label-propagation/ 。网站由GitHub Pages托管，访客的实验计算在访客浏览器内完成，不依赖作者的Mac开机或本地预览服务。
+仓库 Su3037/clustering-lab5-label-propagation 保持 private；GitHub Pages 网站公开可访问，访问者可以观看含指定配乐的短片。网站由 GitHub Actions 在推送到 main 后测试并部署，实验在访客浏览器内运行，不依赖作者的电脑。
 
-成功部署记录：https://github.com/Su3037/clustering-lab5-label-propagation/actions/runs/39290218104 ，对应网站提交56de7b39820c5ee1b106823e49c8e3684680aa7d。之后的交付文档更新不触发重新部署。
+本地预览：`python3 scripts/serve.py`。
 
-线上首页、PPTX、PDF、精讲视频、课件图片和讲义均返回HTTP 200；主片Range请求返回206。公开站点的浏览器自动化读取持续超时，因此未把线上UI复测列为已通过；互动、移动端和视频播放/跳章节的浏览器检查是在相同发布文件的本地预览上完成。
+测试：`npm test`；`python3 tests/crosscheck.py`；`python3 tests/film_v3_crosscheck.py`；`python3 scripts/check_site.py`；`python3 tests/test_preview.py`。
 
-GitHub CLI已认证Su3037。需要在gh与Git的进程环境里使用urllib.request.getproxies()返回的现有http/https代理；不需要修改系统设置或暴露任何凭据。
+重建：短片见 docs/REPRODUCE.md；课件 `python3 scripts/build_deck.py`；下载区 `python3 scripts/package_materials.py`。
 
-本地预览 python3 scripts/serve.py。
+历史版本的源文件仍在仓库中，对应关系见 video/README.md，网站与课件不再使用它们。
 
-测试 npm test；python3 tests/crosscheck.py；python3 scripts/check_site.py。
-
-教师Issue #4尚未评论、未关闭。需要用户先审阅成果。
+教师 Issue #4 尚未评论、未关闭，需要用户先审阅成果并另行确认。
