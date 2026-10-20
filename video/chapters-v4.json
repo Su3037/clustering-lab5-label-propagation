@@ -1,0 +1,77 @@
+[
+  {
+    "start": 0.0,
+    "title": "序 · 通讯录",
+    "id": "contacts"
+  },
+  {
+    "start": 34.17,
+    "title": "一 · 一个极简的办法",
+    "id": "history"
+  },
+  {
+    "start": 51.18,
+    "title": "二 · 芯片里的同一个问题",
+    "id": "chip"
+  },
+  {
+    "start": 85.22,
+    "title": "三 · 尺子与穷举",
+    "id": "ruler"
+  },
+  {
+    "start": 119.27,
+    "title": "四 · 一条局部规则",
+    "id": "rule"
+  },
+  {
+    "start": 189.82,
+    "title": "第 1 层 · 标签",
+    "id": "names"
+  },
+  {
+    "start": 207.23,
+    "title": "第 2 层 · 怎样算最强",
+    "id": "weights"
+  },
+  {
+    "start": 227.44,
+    "title": "第 3 层 · 一次更新",
+    "id": "update"
+  },
+  {
+    "start": 241.0,
+    "title": "第 4 层 · 一整轮",
+    "id": "round1"
+  },
+  {
+    "start": 258.02,
+    "title": "第 5 层 · 何时停止",
+    "id": "round2"
+  },
+  {
+    "start": 275.04,
+    "title": "第 6 层 · 同时还是轮流",
+    "id": "sync"
+  },
+  {
+    "start": 292.32,
+    "title": "第 7 层 · 分得好不好",
+    "id": "cut"
+  },
+  {
+    "start": 309.09,
+    "title": "第 8 层 · 回到芯片",
+    "id": "payoff"
+  },
+  {
+    "start": 325.98,
+    "title": "第 9 层 · 它做不到的事",
+    "id": "limits"
+  },
+  {
+    "start": 343.02,
+    "title": "现实中的用法",
+    "id": "eda"
+  }
+]

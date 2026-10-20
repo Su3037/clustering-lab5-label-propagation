@@ -62,3 +62,28 @@ console.log({nodes:graph.nodes.length,edges:edges.length,total:out.geometric.met
 console.log('reverse',extra.reverse.rounds,extra.reverse.labels,'pairSync',extra.pairSync.status,extra.pairSync.rounds,
   'pairAsync',extra.pairAsync.labels,'vote',extra.weightVote.votes,'strongCD',extra.strongCD.labels,extra.strongCD.metrics.cut,
   'island',extra.island.labels);
+
+// ---- Contacts graph for the everyday opening (fictional; separate RNG so the circuit above is unchanged).
+let s2=123;const r2=()=>(s2=(s2*48271)%2147483647)/2147483647;
+const NAMES=[['妈妈','爸爸','外婆','表姐','舅舅','小姨','堂弟','姑姑'],
+  ['阿杰','小雨','老周','班长','婷婷','大伟','小林','阿珍','浩子','晓明'],
+  ['王经理','李姐','小陈','刘工','赵总','小孙','周姐','小马','何工','老吴']];
+const people=[];NAMES.forEach((g,gi)=>g.forEach(n=>people.push({id:`P${String(people.length).padStart(2,'0')}`,name:n,g:gi})));
+const sEdges=[],sSeen=new Set();
+const sAdd=(a,b,w)=>{const k=[a,b].sort().join('/');if(a===b||sSeen.has(k))return;sSeen.add(k);sEdges.push([a,b,w]);};
+for(const a of people)for(const b of people){if(a.id>=b.id)continue;
+  if(a.g===b.g&&r2()<.5)sAdd(a.id,b.id,2+Math.floor(r2()*5));}
+for(let i=0;i<5;i++){const a=people[Math.floor(r2()*people.length)],b=people[Math.floor(r2()*people.length)];if(a.g!==b.g)sAdd(a.id,b.id,1);}
+// Two layouts: mixed (as a contact list would scatter them) and gathered (for display after grouping).
+const centres=[[560,470],[960,330],[1360,480]];
+const scatter={},gather={};
+people.forEach((p,i)=>{scatter[p.id]=[Math.round(300+r2()*1320),Math.round(200+r2()*560)];
+  const k=NAMES[p.g].indexOf(p.name),m=NAMES[p.g].length,ang=k/m*Math.PI*2-Math.PI/2,R=150+(k%2)*40;
+  gather[p.id]=[Math.round(centres[p.g][0]+Math.cos(ang)*R),Math.round(centres[p.g][1]+Math.sin(ang)*R*.8)];});
+const social={id:'contacts',nodes:people.map(p=>p.id),edges:sEdges};
+const socialRun=new Propagation(social).run();
+const v3=JSON.parse(await fs.readFile(new URL('../data/film-v3.json',import.meta.url),'utf8'));
+v3.social={graph:social,names:Object.fromEntries(people.map(p=>[p.id,p.name])),truth:Object.fromEntries(people.map(p=>[p.id,p.g])),scatter,gather,run:socialRun};
+await fs.writeFile(new URL('../data/film-v3.json',import.meta.url),JSON.stringify(v3));
+console.log('social',people.length,'people',sEdges.length,'edges, rounds',socialRun.rounds,socialRun.status,'groups',
+  Object.values(socialRun.metrics.clusters).map(v=>v.map(id=>people.find(p=>p.id===id).g).join('')),'cut',socialRun.metrics.cut);

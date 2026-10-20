@@ -26,3 +26,8 @@ ps = solve('AB', [['A', 'B', 1]], mode='sync'); assert ps['status'] == d['pairSy
 pa = solve('AB', [['A', 'B', 1]]); assert pa['labels'] == d['pairAsync']['labels'] == {'A': 'B', 'B': 'B'}
 iso = solve('ABCDE', [['A', 'B', 3], ['C', 'D', 2]]); assert iso['labels']['E'] == 'E'
 print('side runs ok: reverse', rv['rounds'], 'rounds; C-D=10 cut', st['cut'], '; sync pair', ps['status'])
+# The contacts graph opening the v4 film, replayed independently.
+s = d['social']; sg = s['graph']; sr = solve(sg['nodes'], sg['edges'])
+assert sr['labels'] == s['run']['labels'] and sr['rounds'] == s['run']['rounds'] and sr['cut'] == s['run']['metrics']['cut']
+print('contacts ok:', len(sg['nodes']), 'people', len(sg['edges']), 'links;', sr['rounds'], 'rounds; cut', sr['cut'],
+      '; groups', sorted(len(v) for v in s['run']['metrics']['clusters'].values()))
